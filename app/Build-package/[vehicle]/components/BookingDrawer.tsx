@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 
 import ServicePhoto from "@/components/ServicePhoto";
@@ -11,6 +11,7 @@ interface Props {
   total: number;
   vehicle: string;
   selectedServices: string[];
+  basePackageIncluded: boolean;
 }
 
 type FormState = {
@@ -18,12 +19,15 @@ type FormState = {
   lastName: string;
   email: string;
   phone: string;
+  vehicleModel: string;
+  registration: string;
   address: string;
   city: string;
   postcode: string;
   date: string;
   time: string;
   notes: string;
+  website: string;
 };
 
 const initialForm: FormState = {
@@ -31,18 +35,22 @@ const initialForm: FormState = {
   lastName: "",
   email: "",
   phone: "",
+  vehicleModel: "",
+  registration: "",
   address: "",
   city: "",
   postcode: "",
   date: "",
   time: "",
   notes: "",
+  website: "",
 };
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-white/[0.055] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-red-500 focus:bg-white/[0.09] focus:ring-4 focus:ring-red-500/10";
 const labelClass =
   "mb-2 block text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55";
+const PENDING_BOOKING_KEY = "dk_pending_booking_v1";
 
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -59,22 +67,52 @@ const localDate = () => {
     .slice(0, 10);
 };
 
+const latestBookingDate = () => {
+  const date = new Date(`${localDate()}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + 180);
+  return date.toISOString().slice(0, 10);
+};
+
+const fingerprintPayload = async (payload: string) => {
+  const digest = await window.crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(payload)
+  );
+
+  return Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
+};
+
 export default function BookingDrawer({
   open,
   onClose,
   total,
   vehicle,
   selectedServices,
+  basePackageIncluded,
 }: Props) {
   const [form, setForm] = useState<FormState>(initialForm);
   const [attempted, setAttempted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [bookingCode, setBookingCode] = useState("");
+  const requestIdRef = useRef<{
+    id: string;
+    fingerprint: string;
+  } | null>(null);
 
   const handleClose = () => {
+    if (isSubmitting) {
+      return;
+    }
+
     setSubmitted(false);
     setIsSubmitting(false);
     setAttempted(false);
+    setSubmitError("");
+    setBookingCode("");
     onClose();
   };
 
@@ -82,8 +120,11 @@ export default function BookingDrawer({
     () => ({
       firstName: !form.firstName.trim(),
       lastName: !form.lastName.trim(),
-      email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email),
-      phone: form.phone.replace(/\D/g, "").length < 7,
+      email:
+        Boolean(form.email.trim()) &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email),
+      phone: form.phone.replace(/\D/g, "").length < 10,
+      vehicleModel: !form.vehicleModel.trim(),
       address: !form.address.trim(),
       city: !form.city.trim(),
       postcode: !form.postcode.trim(),
@@ -102,9 +143,15 @@ export default function BookingDrawer({
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        if (isSubmitting) {
+          return;
+        }
+
         setSubmitted(false);
         setIsSubmitting(false);
         setAttempted(false);
+        setSubmitError("");
+        setBookingCode("");
         onClose();
       }
     };
@@ -116,7 +163,7 @@ export default function BookingDrawer({
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [open, onClose]);
+  }, [isSubmitting, open, onClose]);
 
   const updateField = (
     field: keyof FormState,
@@ -125,9 +172,10 @@ export default function BookingDrawer({
     setForm((current) => ({ ...current, [field]: value }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setAttempted(true);
+    setSubmitError("");
 
     if (!isValid) {
       return;
@@ -135,10 +183,100 @@ export default function BookingDrawer({
 
     setIsSubmitting(true);
 
-    window.setTimeout(() => {
+    try {
+      const bookingPayload = {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        phone: form.phone,
+        vehicle,
+        vehicleModel: form.vehicleModel,
+        registration: form.registration,
+        address: form.address,
+        city: form.city,
+        postcode: form.postcode,
+        date: form.date,
+        time: form.time,
+        notes: form.notes,
+        selectedServices,
+        basePackageIncluded,
+        website: form.website,
+      };
+      const payloadFingerprint = await fingerprintPayload(
+        JSON.stringify(bookingPayload)
+      );
+      let pendingRequest = requestIdRef.current;
+
+      if (!pendingRequest || pendingRequest.fingerprint !== payloadFingerprint) {
+        try {
+          const stored = JSON.parse(
+            window.sessionStorage.getItem(PENDING_BOOKING_KEY) || "null"
+          ) as { id?: string; fingerprint?: string } | null;
+
+          pendingRequest =
+            stored?.id && stored.fingerprint === payloadFingerprint
+              ? { id: stored.id, fingerprint: stored.fingerprint }
+              : {
+                  id: window.crypto.randomUUID(),
+                  fingerprint: payloadFingerprint,
+                };
+        } catch {
+          pendingRequest = {
+            id: window.crypto.randomUUID(),
+            fingerprint: payloadFingerprint,
+          };
+        }
+
+        requestIdRef.current = pendingRequest;
+
+        try {
+          window.sessionStorage.setItem(
+            PENDING_BOOKING_KEY,
+            JSON.stringify(pendingRequest)
+          );
+        } catch {
+          // Submission still works if browser storage is unavailable.
+        }
+      }
+
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requestId: pendingRequest.id,
+          ...bookingPayload,
+        }),
+      });
+
+      const result = (await response.json()) as {
+        bookingCode?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !result.bookingCode) {
+        throw new Error(
+          result.error || "We could not save your booking. Please try again."
+        );
+      }
+
+      setBookingCode(result.bookingCode);
+      setForm(initialForm);
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 850);
+      requestIdRef.current = null;
+      try {
+        window.sessionStorage.removeItem(PENDING_BOOKING_KEY);
+      } catch {
+        // Nothing else is required after a confirmed receipt.
+      }
+    } catch (error) {
+      setIsSubmitting(false);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "We could not save your booking. Please try again."
+      );
+    }
   };
 
   const fieldError = (field: keyof typeof errors) =>
@@ -159,6 +297,7 @@ export default function BookingDrawer({
         aria-label="Close booking drawer"
         className="absolute inset-0 bg-[#06070a]/78 backdrop-blur-sm"
         onClick={handleClose}
+        disabled={isSubmitting}
       />
 
       <aside className="absolute right-0 top-0 flex h-full w-full max-w-2xl animate-[slide-in_0.45s_cubic-bezier(0.16,1,0.3,1)] flex-col overflow-hidden border-l border-white/10 bg-[#0f0f10]/96 shadow-[-24px_0_80px_rgba(0,0,0,0.5)] backdrop-blur-3xl">
@@ -181,7 +320,8 @@ export default function BookingDrawer({
           <button
             type="button"
             onClick={handleClose}
-            className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-lg text-white/70 transition hover:bg-white/10 hover:text-white"
+            disabled={isSubmitting}
+            className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-lg text-white/70 transition hover:bg-white/10 hover:text-white disabled:cursor-wait disabled:opacity-35"
             aria-label="Close"
           >
             X
@@ -195,18 +335,27 @@ export default function BookingDrawer({
             </div>
 
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-200">
-              Reservation received
+              Booking request saved
             </p>
 
             <h3 className="mt-3 text-3xl font-semibold tracking-tight text-white">
-              We will be in touch shortly.
+              We will call you shortly.
             </h3>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-white/60">
-              Your concierge will confirm availability for
-              your {vehicle} and tailor the final details
-              around your schedule.
+              Your request is safely stored. Our team will
+              call you to confirm availability and finalise
+              the service details for your {vehicle}.
             </p>
+
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 px-5 py-3">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">
+                Booking ID
+              </p>
+              <p className="mt-1 font-mono text-base font-semibold text-white">
+                {bookingCode}
+              </p>
+            </div>
 
             <button
               type="button"
@@ -222,6 +371,18 @@ export default function BookingDrawer({
             noValidate
             className="relative flex-1 overflow-y-auto px-4 pb-8 pt-5 sm:px-8 sm:pt-6"
           >
+            <input
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="hidden"
+              name="website"
+              value={form.website}
+              onChange={(event) =>
+                updateField("website", event.target.value)
+              }
+            />
+
             <section className="rounded-[1.8rem] border border-white/10 bg-gradient-to-br from-white/[0.11] to-white/[0.035] p-5 shadow-2xl shadow-black/20">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -315,7 +476,10 @@ export default function BookingDrawer({
 
                 <div>
                   <label className={labelClass} htmlFor="email">
-                    Email
+                    Email{" "}
+                    <span className="normal-case tracking-normal text-white/30">
+                      (optional)
+                    </span>
                   </label>
                   <input
                     id="email"
@@ -348,13 +512,61 @@ export default function BookingDrawer({
                       updateField("phone", e.target.value)
                     }
                     className={inputClass}
-                    placeholder="(555) 000-0000"
+                    placeholder="+91 98765 43210"
                   />
                   {fieldError("phone") && (
                     <p className="mt-1.5 text-xs text-rose-300">
                       Enter a valid phone number.
                     </p>
                   )}
+                </div>
+              </div>
+            </section>
+
+            <section className="mt-7">
+              <h3 className="text-base font-medium text-white">
+                Vehicle details
+              </h3>
+
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label className={labelClass} htmlFor="vehicleModel">
+                    Make and model
+                  </label>
+                  <input
+                    id="vehicleModel"
+                    autoComplete="off"
+                    value={form.vehicleModel}
+                    onChange={(event) =>
+                      updateField("vehicleModel", event.target.value)
+                    }
+                    className={inputClass}
+                    placeholder="Hyundai Creta"
+                  />
+                  {fieldError("vehicleModel") && (
+                    <p className="mt-1.5 text-xs text-rose-300">
+                      Enter your vehicle make and model.
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className={labelClass} htmlFor="registration">
+                    Registration{" "}
+                    <span className="normal-case tracking-normal text-white/30">
+                      (optional)
+                    </span>
+                  </label>
+                  <input
+                    id="registration"
+                    autoComplete="off"
+                    value={form.registration}
+                    onChange={(event) =>
+                      updateField("registration", event.target.value.toUpperCase())
+                    }
+                    className={`${inputClass} uppercase`}
+                    placeholder="DL 01 AB 1234"
+                  />
                 </div>
               </div>
             </section>
@@ -444,6 +656,7 @@ export default function BookingDrawer({
                     id="date"
                     type="date"
                     min={localDate()}
+                    max={latestBookingDate()}
                     value={form.date}
                     onChange={(e) =>
                       updateField("date", e.target.value)
@@ -515,6 +728,15 @@ export default function BookingDrawer({
             </section>
 
             <div className="sticky bottom-0 -mx-4 mt-8 border-t border-white/10 bg-[#0f0f10]/92 px-4 pb-2 pt-5 backdrop-blur-xl sm:-mx-8 sm:px-8">
+              {submitError && (
+                <p
+                  className="mb-3 rounded-xl border border-rose-400/25 bg-rose-400/10 px-3 py-2.5 text-center text-xs leading-5 text-rose-200"
+                  role="alert"
+                >
+                  {submitError}
+                </p>
+              )}
+
               <button
                 type="submit"
                 disabled={!isValid || isSubmitting}
@@ -523,7 +745,7 @@ export default function BookingDrawer({
                 {isSubmitting ? (
                   <>
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/35 border-t-white" />
-                    Securing reservation
+                    Saving booking
                   </>
                 ) : (
                   <>Request reservation</>
@@ -531,8 +753,8 @@ export default function BookingDrawer({
               </button>
 
               <p className="mt-3 text-center text-[11px] leading-4 text-white/35">
-                No payment is collected today. Your
-                concierge will confirm every detail.
+                This only sends a booking request. No online
+                payment is required.
               </p>
             </div>
           </form>

@@ -143,6 +143,10 @@ export default function VehicleConfigurator({
         selectedServices={selected.map(
           (service) => service.name
         )}
+        basePackageIncluded={
+          selectedCategory === "detailing" ||
+          hasDetailingSelection
+        }
       />
     </>
   );
