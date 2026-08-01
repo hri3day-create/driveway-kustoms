@@ -111,25 +111,25 @@ export default function ServicesPage() {
                 </p>
               </div>
 
-              <div className="grid gap-3.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
                 {group.items.map((service) => {
                   const priceLabel = formatPriceLabel(service);
 
                   return (
                     <article
                       key={`${group.title}-${service.id}`}
-                      className="group flex min-h-52 flex-col rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/70 hover:bg-white/[0.06] sm:min-h-56 sm:rounded-[1.8rem] sm:p-6"
+                      className="group flex min-w-0 flex-col rounded-[1.25rem] border border-white/10 bg-white/[0.035] p-3 transition duration-300 hover:-translate-y-1 hover:border-red-500/70 hover:bg-white/[0.06] sm:min-h-56 sm:rounded-[1.8rem] sm:p-6"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex min-w-0 items-center gap-3">
                           <ServicePhoto
                             name={service.name}
                             category={service.category}
-                            className="h-14 w-14 rounded-2xl"
-                            sizes="56px"
-                          />
+                          className="h-10 w-10 rounded-xl sm:h-14 sm:w-14 sm:rounded-2xl"
+                          sizes="(max-width: 640px) 40px, 56px"
+                        />
 
-                          <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+                          <span className="min-w-0 truncate rounded-full bg-white/5 px-2 py-1 text-[9px] font-medium uppercase tracking-wide text-zinc-400 sm:px-3 sm:text-[11px] sm:tracking-wider">
                             {service.category}
                           </span>
                         </div>
@@ -141,17 +141,17 @@ export default function ServicesPage() {
                         )}
                       </div>
 
-                      <h3 className="mt-5 text-lg font-semibold text-white sm:mt-6">
+                      <h3 className="mt-3 text-sm font-semibold leading-5 text-white sm:mt-6 sm:text-lg sm:leading-normal">
                         {service.name}
                       </h3>
 
-                      <p className="mt-2 text-sm leading-6 text-zinc-400">
+                      <p className="mt-1.5 line-clamp-3 text-[11px] leading-[1.05rem] text-zinc-400 sm:mt-2 sm:text-sm sm:leading-6">
                         {service.description}
                       </p>
 
-                      <div className="mt-auto pt-5">
+                      <div className="mt-auto pt-3 sm:pt-5">
                         {priceLabel ? (
-                          <p className="text-sm font-semibold text-white">
+                          <p className="text-[11px] font-semibold leading-4 text-white sm:text-sm">
                             {priceLabel}
                           </p>
                         ) : (

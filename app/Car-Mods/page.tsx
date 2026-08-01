@@ -92,43 +92,45 @@ export default function CarModsPage() {
                 </p>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
                 {group.services.map((service) => (
                   <article
                     key={`${group.title}-${service.id}`}
-                    className="group flex min-h-52 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition duration-300 hover:-translate-y-1 hover:border-red-500/70 hover:bg-white/[0.06] sm:min-h-56 sm:rounded-3xl sm:p-5"
+                    className="group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035] p-2.5 transition duration-300 hover:-translate-y-1 hover:border-red-500/70 hover:bg-white/[0.06] sm:min-h-56 sm:rounded-3xl sm:p-5"
                   >
                     <ServicePhoto
                       name={service.name}
                       category={service.category}
                       variant="card"
-                      sizes="(max-width: 640px) calc(100vw - 72px), (max-width: 1024px) 42vw, 280px"
+                      className="rounded-xl sm:rounded-2xl"
+                      sizes="(max-width: 640px) 43vw, (max-width: 1024px) 42vw, 280px"
                     />
 
-                    <div className="mt-4 flex items-center justify-between gap-3">
-                      <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+                    <div className="mt-2.5 flex min-w-0 items-center justify-between gap-1.5 sm:mt-4 sm:gap-3">
+                      <span className="min-w-0 truncate rounded-full bg-white/5 px-2 py-1 text-[9px] font-medium uppercase tracking-wide text-zinc-400 sm:px-3 sm:text-[11px] sm:tracking-wider">
                         {service.category}
                       </span>
 
                       {service.popular && (
-                        <span className="rounded-full bg-red-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
-                          Popular
+                        <span className="shrink-0 rounded-full bg-red-500 px-1.5 py-1 text-[8px] font-bold uppercase tracking-wide text-white sm:px-2.5 sm:text-[10px]">
+                          <span className="sm:hidden">Top</span>
+                          <span className="hidden sm:inline">Popular</span>
                         </span>
                       )}
                     </div>
 
-                    <h3 className="mt-5 text-lg font-semibold">
+                    <h3 className="mt-3 text-sm font-semibold leading-5 sm:mt-5 sm:text-lg sm:leading-normal">
                       {service.name}
                     </h3>
 
-                    <p className="mt-2 text-sm leading-6 text-zinc-400">
+                    <p className="mt-1.5 line-clamp-3 text-[11px] leading-[1.05rem] text-zinc-400 sm:mt-2 sm:text-sm sm:leading-6">
                       {service.description}
                     </p>
 
-                    <div className="mt-auto pt-5">
+                    <div className="mt-auto pt-3 sm:pt-5">
                       {service.startingPrice ? (
-                        <p className="text-sm font-semibold text-white">
-                          Starting from{" "}
+                        <p className="text-[10px] font-semibold leading-4 text-white sm:text-sm">
+                          <span className="block text-zinc-500 sm:inline sm:text-white">Starting from </span>
                           {formatStartingPrice(service.startingPrice)}
                         </p>
                       ) : (

@@ -81,7 +81,7 @@ export default function ServiceList({
           </p>
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-1 gap-3.5 sm:mt-8 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:gap-5 xl:grid-cols-3">
           {filteredServices.map((service) => {
           const active = selected.some(
             (item) => item.name === service.name
@@ -90,7 +90,7 @@ export default function ServiceList({
           return (
             <div
               key={service.id}
-              className={`group rounded-[1.6rem] border p-4 transition-all duration-300 hover:-translate-y-1 sm:rounded-[1.85rem] sm:p-5 ${
+              className={`group flex min-w-0 flex-col rounded-[1.25rem] border p-2.5 transition-all duration-300 hover:-translate-y-1 sm:rounded-[1.85rem] sm:p-5 ${
                 active
                   ? "border-red-500 bg-red-500/10 shadow-[0_0_25px_rgba(239,68,68,0.15)]"
                   : "border-white/10 bg-white/[0.035] hover:border-white/20"
@@ -100,39 +100,40 @@ export default function ServiceList({
                 name={service.name}
                 category={service.category}
                 variant="card"
-                sizes="(max-width: 768px) calc(100vw - 72px), (max-width: 1280px) 42vw, 260px"
+                className="rounded-xl sm:rounded-2xl"
+                sizes="(max-width: 640px) 43vw, (max-width: 1280px) 42vw, 260px"
               />
 
-              <div className="mt-4 flex items-center justify-between gap-3">
-                <span className="rounded-full border border-white/10 bg-black/25 px-3 py-1 text-[11px] uppercase tracking-wider text-zinc-300">
+              <div className="mt-2.5 flex min-w-0 items-center justify-between gap-1.5 sm:mt-4 sm:gap-3">
+                <span className="min-w-0 truncate rounded-full border border-white/10 bg-black/25 px-2 py-1 text-[9px] uppercase tracking-wide text-zinc-300 sm:px-3 sm:text-[11px] sm:tracking-wider">
                   {service.category}
                 </span>
 
                 {service.popular && (
-                  <span className="flex items-center gap-1 rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">
-                    <Star size={12} fill="white" />
-                    Popular
+                  <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-500 p-1.5 text-[9px] font-semibold text-white sm:px-3 sm:py-1 sm:text-xs">
+                    <Star size={11} fill="white" />
+                    <span className="hidden sm:inline">Popular</span>
                   </span>
                 )}
               </div>
 
-              <h3 className="mt-5 text-xl font-semibold text-white">
+              <h3 className="mt-3 text-sm font-semibold leading-5 text-white sm:mt-5 sm:text-xl sm:leading-normal">
                 {service.name}
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-zinc-400">
+              <p className="mt-1.5 line-clamp-3 text-[11px] leading-[1.05rem] text-zinc-400 sm:mt-3 sm:text-sm sm:leading-7">
                 {service.description}
               </p>
 
               {service.note && (
-                <div className="mt-4 rounded-xl border border-white/10 bg-black/25 p-3">
-                  <p className="text-xs leading-6 text-zinc-500">
+                <div className="mt-2.5 rounded-lg border border-white/10 bg-black/25 p-2 sm:mt-4 sm:rounded-xl sm:p-3">
+                  <p className="line-clamp-2 text-[10px] leading-4 text-zinc-500 sm:text-xs sm:leading-6">
                     {service.note}
                   </p>
                 </div>
               )}
 
-              <div className="mt-7 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:items-end sm:justify-between">
+              <div className="mt-auto flex flex-col gap-2 pt-3 sm:mt-8 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:pt-0">
                 <div>
                   {showPrices && service.price && (
                     <>
@@ -140,7 +141,7 @@ export default function ServiceList({
                         Price
                       </p>
 
-                      <p className="mt-1 text-3xl font-bold text-white">
+                      <p className="mt-1 text-lg font-bold text-white sm:text-3xl">
                         Rs {service.price}
                       </p>
                     </>
@@ -153,7 +154,7 @@ export default function ServiceList({
                           Starting from
                         </p>
 
-                        <p className="mt-1 text-lg font-semibold text-red-400">
+                        <p className="mt-1 text-sm font-semibold text-red-400 sm:text-lg">
                           {service.startingPrice
                             .replace("₹", "Rs ")
                             .replace("â‚¹", "Rs ")
@@ -165,7 +166,7 @@ export default function ServiceList({
 
                 <button
                   onClick={() => toggleService(service)}
-                  className={`flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all ${
+                  className={`flex min-h-10 w-full items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-xs font-semibold transition-all sm:min-h-11 sm:w-auto sm:gap-2 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm ${
                     active
                       ? "bg-green-600 text-white hover:bg-green-700"
                       : "bg-red-600 text-white hover:bg-red-700"
