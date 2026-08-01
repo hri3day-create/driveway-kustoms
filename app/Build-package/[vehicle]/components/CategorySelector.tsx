@@ -53,7 +53,7 @@ export default function CategorySelector({
         </p>
       </div>
 
-      <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
         {categories.map((category) => {
           const active = selected === category.id;
 
@@ -61,34 +61,46 @@ export default function CategorySelector({
             <button
               key={category.id}
               onClick={() => onSelect(category.id)}
-              className={`group relative min-h-[164px] min-w-[15.5rem] shrink-0 rounded-[1.6rem] border p-5 text-left transition-all duration-300 sm:min-w-0 sm:p-6 ${
+              aria-pressed={active}
+              className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[1.25rem] border p-2.5 text-left transition-all duration-300 sm:rounded-[1.6rem] sm:p-4 ${
                 active
-                  ? "border-red-500 bg-red-500/10 shadow-[0_0_30px_rgba(239,68,68,0.15)]"
+                  ? "border-red-500 bg-red-500/10 shadow-[0_0_30px_rgba(239,68,68,0.18)]"
                   : "border-white/10 bg-white/[0.035] hover:-translate-y-1 hover:border-white/20"
               }`}
             >
               {active && (
-                <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white">
-                  <Check size={16} />
+                <div className="absolute right-4 top-4 z-10 flex h-7 w-7 items-center justify-center rounded-full border-2 border-white/80 bg-red-500 text-white shadow-lg sm:h-8 sm:w-8">
+                  <Check size={15} strokeWidth={3} />
                 </div>
               )}
 
               <ServicePhoto
                 name={category.title}
                 category={category.title}
-                className={`mb-5 h-20 w-full rounded-[1.2rem] transition-all ${
+                variant="card"
+                className={`mb-3 rounded-xl transition-all sm:mb-4 sm:rounded-2xl ${
                   active ? "border-red-500/60" : "group-hover:border-red-500/40"
                 }`}
-                sizes="(max-width: 640px) 250px, 25vw"
+                sizes="(max-width: 640px) 43vw, (max-width: 1024px) 42vw, 280px"
               />
 
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-sm font-semibold leading-5 text-white sm:text-lg sm:leading-normal">
                 {category.title}
               </h3>
 
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+              <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-zinc-400 sm:mt-2 sm:text-sm sm:leading-relaxed">
                 {category.subtitle}
               </p>
+
+              <span
+                className={`mt-3 inline-flex w-fit rounded-full px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide sm:mt-4 sm:px-3 sm:text-[10px] ${
+                  active
+                    ? "bg-red-500 text-white"
+                    : "bg-white/5 text-zinc-400"
+                }`}
+              >
+                {active ? "Selected" : "View options"}
+              </span>
             </button>
           );
         })}
