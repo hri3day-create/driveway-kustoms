@@ -26,8 +26,8 @@ const serviceImages: Record<string, string> = {
   "Interior Cleaning": "interior-cleaning.jpg",
   "Interior Mods": "bmw-ambient-unsplash.jpg",
   "Interior Upgrades": "bmw-ambient-unsplash.jpg",
-  "Exterior Mods": "body-kit-show.jpg",
-  "Exterior Styling": "body-kit-show.jpg",
+  "Exterior Mods": "exterior-mods-bmw-jdm.webp",
+  "Exterior Styling": "exterior-mods-bmw-jdm.webp",
   Protection: "protective-film-team.jpg",
   "Protection Packages": "protective-film-team.jpg",
 
