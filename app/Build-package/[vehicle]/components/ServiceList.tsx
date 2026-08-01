@@ -90,25 +90,23 @@ export default function ServiceList({
           return (
             <div
               key={service.id}
-              className={`group rounded-[1.6rem] border p-5 transition-all duration-300 hover:-translate-y-1 sm:rounded-[1.85rem] sm:p-6 ${
+              className={`group rounded-[1.6rem] border p-4 transition-all duration-300 hover:-translate-y-1 sm:rounded-[1.85rem] sm:p-5 ${
                 active
                   ? "border-red-500 bg-red-500/10 shadow-[0_0_25px_rgba(239,68,68,0.15)]"
                   : "border-white/10 bg-white/[0.035] hover:border-white/20"
               }`}
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex min-w-0 items-center gap-3">
-                  <ServicePhoto
-                    name={service.name}
-                    category={service.category}
-                    className="h-14 w-14 rounded-2xl"
-                    sizes="56px"
-                  />
+              <ServicePhoto
+                name={service.name}
+                category={service.category}
+                variant="card"
+                sizes="(max-width: 768px) calc(100vw - 72px), (max-width: 1280px) 42vw, 260px"
+              />
 
-                  <span className="rounded-full border border-white/10 bg-black/25 px-3 py-1 text-[11px] uppercase tracking-wider text-zinc-300">
-                    {service.category}
-                  </span>
-                </div>
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <span className="rounded-full border border-white/10 bg-black/25 px-3 py-1 text-[11px] uppercase tracking-wider text-zinc-300">
+                  {service.category}
+                </span>
 
                 {service.popular && (
                   <span className="flex items-center gap-1 rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">

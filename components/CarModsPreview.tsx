@@ -11,7 +11,7 @@ const mods = [
   {
     title: "Exterior Styling",
     detail:
-      "Body kits, wraps, spoilers, alloys, and sharper visual character for the whole car.",
+      "Body kits, spoilers, custom lighting, grilles, and sharper visual character for the whole car.",
   },
   {
     title: "Protection Packages",

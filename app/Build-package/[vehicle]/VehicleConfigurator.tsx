@@ -33,13 +33,30 @@ export default function VehicleConfigurator({
   const [selected, setSelected] = useState<Service[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const hasDetailingSelection = selected.some(
+    (service) => typeof service.price === "number"
+  );
+
   const basePrice =
-    selectedCategory === "detailing" ? 699 : 0;
+    selectedCategory === "detailing" || hasDetailingSelection
+      ? 699
+      : 0;
+
+  const getServicePrice = (service: Service) => {
+    if (typeof service.price === "number") {
+      return service.price;
+    }
+
+    const startingPrice = service.startingPrice?.match(/[\d,]+/);
+    return startingPrice
+      ? Number(startingPrice[0].replace(/,/g, ""))
+      : 0;
+  };
 
   const total =
     basePrice +
     selected.reduce(
-      (sum, item) => sum + (item.price ?? 0),
+      (sum, item) => sum + getServicePrice(item),
       0
     );
 
@@ -111,7 +128,8 @@ export default function VehicleConfigurator({
             toggleService={toggleService}
             onContinue={() => setDrawerOpen(true)}
             showBasePackage={
-              selectedCategory === "detailing"
+              selectedCategory === "detailing" ||
+              hasDetailingSelection
             }
           />
         </div>

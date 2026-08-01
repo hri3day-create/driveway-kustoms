@@ -71,6 +71,13 @@ export default function BookingDrawer({
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleClose = () => {
+    setSubmitted(false);
+    setIsSubmitting(false);
+    setAttempted(false);
+    onClose();
+  };
+
   const errors = useMemo(
     () => ({
       firstName: !form.firstName.trim(),
@@ -95,6 +102,9 @@ export default function BookingDrawer({
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        setSubmitted(false);
+        setIsSubmitting(false);
+        setAttempted(false);
         onClose();
       }
     };
@@ -107,14 +117,6 @@ export default function BookingDrawer({
       document.body.style.overflow = "";
     };
   }, [open, onClose]);
-
-  useEffect(() => {
-    if (!open) {
-      setSubmitted(false);
-      setIsSubmitting(false);
-      setAttempted(false);
-    }
-  }, [open]);
 
   const updateField = (
     field: keyof FormState,
@@ -156,7 +158,7 @@ export default function BookingDrawer({
       <button
         aria-label="Close booking drawer"
         className="absolute inset-0 bg-[#06070a]/78 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       <aside className="absolute right-0 top-0 flex h-full w-full max-w-2xl animate-[slide-in_0.45s_cubic-bezier(0.16,1,0.3,1)] flex-col overflow-hidden border-l border-white/10 bg-[#0f0f10]/96 shadow-[-24px_0_80px_rgba(0,0,0,0.5)] backdrop-blur-3xl">
@@ -178,7 +180,7 @@ export default function BookingDrawer({
 
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-lg text-white/70 transition hover:bg-white/10 hover:text-white"
             aria-label="Close"
           >
@@ -208,7 +210,7 @@ export default function BookingDrawer({
 
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98]"
             >
               Return to configurator

@@ -16,7 +16,7 @@ const services = [
   {
     title: "Exterior Mods",
     description:
-      "Wraps, spoilers, lighting, alloys, and tasteful styling upgrades that transform presence.",
+      "Body kits, spoilers, lighting, grilles, and tasteful styling upgrades that transform presence.",
   },
   {
     title: "Protection",

@@ -27,7 +27,7 @@ const categories = [
   {
     id: "exterior",
     title: "Exterior Mods",
-    subtitle: "Body kits and wraps",
+    subtitle: "Body kits, lighting and styling",
   },
   {
     id: "protection",

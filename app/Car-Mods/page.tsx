@@ -96,21 +96,19 @@ export default function CarModsPage() {
                 {group.services.map((service) => (
                   <article
                     key={`${group.title}-${service.id}`}
-                    className="group flex min-h-52 flex-col rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-red-500/70 hover:bg-white/[0.06] sm:min-h-56 sm:rounded-3xl sm:p-6"
+                    className="group flex min-h-52 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition duration-300 hover:-translate-y-1 hover:border-red-500/70 hover:bg-white/[0.06] sm:min-h-56 sm:rounded-3xl sm:p-5"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex min-w-0 items-center gap-3">
-                        <ServicePhoto
-                          name={service.name}
-                          category={service.category}
-                          className="h-14 w-14 rounded-2xl"
-                          sizes="56px"
-                        />
+                    <ServicePhoto
+                      name={service.name}
+                      category={service.category}
+                      variant="card"
+                      sizes="(max-width: 640px) calc(100vw - 72px), (max-width: 1024px) 42vw, 280px"
+                    />
 
-                        <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-zinc-400">
-                          {service.category}
-                        </span>
-                      </div>
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+                        {service.category}
+                      </span>
 
                       {service.popular && (
                         <span className="rounded-full bg-red-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">

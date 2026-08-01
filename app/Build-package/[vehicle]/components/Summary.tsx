@@ -198,7 +198,7 @@ export default function Summary({
               ) : (
                 selected.map((service) => (
                   <div
-                    key={service.id}
+                    key={`${service.category}-${service.name}`}
                     className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/25 p-4 transition hover:border-red-500"
                   >
                     <div className="flex min-w-0 items-center gap-3">

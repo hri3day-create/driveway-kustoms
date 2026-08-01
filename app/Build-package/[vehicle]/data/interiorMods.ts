@@ -3,15 +3,73 @@ import { Service } from "../types";
 export const interiorMods: Service[] = [
   {
     id: 1,
-    name: "OEM Fit Ambient Lighting & Ambient Light Kits",
+    name: "360 Degree Camera System Installation",
     description:
-      "Premium OEM-fit ambient lighting and ambient light kit upgrade.",
-    category: "Lighting",
-    startingPrice: "Rs 4,500",
+      "Calibrated surround-view camera installation with bird's-eye parking visibility on a compatible display.",
+    category: "Safety",
+    startingPrice: "Rs 12,000",
     popular: true,
   },
   {
     id: 2,
+    name: "Premium Seat Upholstery",
+    description:
+      "Tailored premium upholstery with precise stitching, clean fitment, and material options selected for your cabin.",
+    category: "Upholstery",
+    startingPrice: "Rs 6,500",
+    popular: true,
+  },
+  {
+    id: 3,
+    name: "Premium Cabin & Strip Ambient Lighting",
+    description:
+      "OEM-style dashboard, door and footwell strip lighting with selectable colours and concealed wiring.",
+    category: "Lighting",
+    startingPrice: "Rs 5,500",
+    popular: true,
+  },
+  {
+    id: 4,
+    name: "Underseat Subwoofer Installation",
+    description:
+      "Compact powered subwoofer installation beneath the seat for deeper bass without sacrificing boot space.",
+    category: "Audio",
+    startingPrice: "Rs 5,000",
+  },
+  {
+    id: 5,
+    name: "Bass Tube Installation",
+    description:
+      "Secure boot-mounted bass tube installation with tidy fused wiring and correct gain setup.",
+    category: "Audio",
+    startingPrice: "Rs 3,600",
+  },
+  {
+    id: 6,
+    name: "Tweeter Installation",
+    description:
+      "Precision tweeter fitment and crossover integration for clearer vocals and high-frequency detail.",
+    category: "Audio",
+    startingPrice: "Rs 3,500",
+  },
+  {
+    id: 7,
+    name: "DSP Tuning & Installation",
+    description:
+      "Digital signal processor installation and cabin-specific tuning for balanced staging, clarity, and control.",
+    category: "Audio",
+    startingPrice: "Rs 5,000",
+  },
+  {
+    id: 8,
+    name: "Door Damping",
+    description:
+      "Butyl damping treatment inside the door panels to reduce resonance, road noise, and speaker vibration.",
+    category: "Comfort",
+    startingPrice: "Rs 1,500",
+  },
+  {
+    id: 9,
     name: "Android Infotainment Systems",
     description:
       "Advanced Android infotainment system upgrade.",
@@ -19,16 +77,7 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 7,000",
   },
   {
-    id: 3,
-    name: "360 Degree Camera Systems",
-    description:
-      "Full surround-view camera system installation.",
-    category: "Safety",
-    startingPrice: "Rs 12,000",
-    popular: true,
-  },
-  {
-    id: 4,
+    id: 10,
     name: "Reverse Camera Installation",
     description:
       "Reverse camera installation for easier parking.",
@@ -36,15 +85,7 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 1,500",
   },
   {
-    id: 5,
-    name: "Premium Seat Upholstery",
-    description:
-      "Premium custom seat upholstery upgrade.",
-    category: "Upholstery",
-    startingPrice: "Rs 6,500",
-  },
-  {
-    id: 6,
+    id: 11,
     name: "Roof Starlight Installation",
     description:
       "Luxury roof starlight installation.",
@@ -53,7 +94,7 @@ export const interiorMods: Service[] = [
     popular: true,
   },
   {
-    id: 7,
+    id: 12,
     name: "Steering Wheel Upholstery",
     description:
       "Custom steering wheel upholstery finish.",
@@ -61,7 +102,7 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 2,000",
   },
   {
-    id: 8,
+    id: 13,
     name: "Dashboard Upholstery",
     description:
       "Dashboard upholstery upgrade.",
@@ -69,7 +110,7 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 4,500",
   },
   {
-    id: 9,
+    id: 14,
     name: "Door Panel Upholstery",
     description:
       "Door panel upholstery upgrade.",
@@ -77,7 +118,7 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 2,500",
   },
   {
-    id: 10,
+    id: 15,
     name: "Roof Liner Upholstery",
     description:
       "Roof liner upholstery enhancement.",
@@ -85,100 +126,60 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 3,000",
   },
   {
-    id: 11,
+    id: 16,
     name: "Complete Car Audio Setup",
     description:
-      "Full premium car audio setup with JBL, Hertz, Morel, Focal, Infinity, JL Audio, Pioneer, Sony, Blaupunkt and more.",
+      "Complete speaker, amplification and bass upgrade planned around your car and listening preferences.",
     category: "Audio",
     startingPrice: "Rs 15,000",
   },
   {
-    id: 12,
+    id: 17,
     name: "Car Midrange Speakers",
     description:
-      "Midrange speaker upgrade with Aura, Deaf Bonce, Morel, Hertz and more.",
+      "Dedicated midrange speaker upgrade for stronger vocals and front-stage presence.",
     category: "Audio",
     startingPrice: "Rs 4,000",
-  },
-  {
-    id: 13,
-    name: "Component Speakers",
-    description:
-      "Component speaker setup with JBL, Hertz, Morel, Focal, Infinity, JL Audio and more.",
-    category: "Audio",
-    startingPrice: "Rs 4,000",
-  },
-  {
-    id: 14,
-    name: "Coaxial Speakers",
-    description:
-      "Coaxial speaker upgrade with JBL, Hertz, Morel, Focal, Infinity, JL Audio and more.",
-    category: "Audio",
-    startingPrice: "Rs 3,500",
-  },
-  {
-    id: 15,
-    name: "OEM-Specific Subwoofer Upgrades",
-    description:
-      "OEM-style subwoofer upgrade with vehicle-specific fitment and deeper bass.",
-    category: "Audio",
-    startingPrice: "Rs 5,500",
-  },
-  {
-    id: 16,
-    name: "Underseat Subwoofer Installation",
-    description:
-      "Underseat subwoofer install with JBL, Pioneer, Blaupunkt, Sony, Nakamichi and more.",
-    category: "Audio",
-    startingPrice: "Rs 5,000",
-  },
-  {
-    id: 17,
-    name: "Boot Subwoofer Installation",
-    description:
-      "Boot subwoofer install with JBL, Pioneer, Sony, Infinity, JL Audio, Rockford Fosgate and more.",
-    category: "Audio",
-    startingPrice: "Rs 5,000",
   },
   {
     id: 18,
-    name: "Bass Tube Installation",
+    name: "Component Speakers",
     description:
-      "Bass tube install with JBL, Pioneer, Sony, Blaupunkt and more.",
+      "Component speaker upgrade with separate woofer, tweeter, and crossover installation.",
     category: "Audio",
-    startingPrice: "Rs 3,600",
+    startingPrice: "Rs 4,000",
   },
   {
     id: 19,
-    name: "Amplifier Installation",
+    name: "Coaxial Speakers",
     description:
-      "Amplifier install with JBL, Pioneer, Sony, Hertz, Infinity, JL Audio and more.",
+      "Clean coaxial speaker replacement for improved everyday sound.",
     category: "Audio",
     startingPrice: "Rs 3,500",
   },
   {
     id: 20,
-    name: "Tweeter Installation",
+    name: "OEM-Specific Subwoofer Upgrades",
     description:
-      "Tweeter install with JBL, Hertz, Morel, Focal, Infinity and more.",
+      "Vehicle-specific subwoofer upgrade with an integrated factory-style fitment.",
     category: "Audio",
-    startingPrice: "Rs 3,500",
+    startingPrice: "Rs 5,500",
   },
   {
     id: 21,
-    name: "DSP Tuning & Installation",
+    name: "Boot Subwoofer Installation",
     description:
-      "DSP tuning and install with Helix, Audison, Pioneer, Hertz, JBL and more.",
+      "Boot subwoofer installation with a secure enclosure and correctly routed wiring.",
     category: "Audio",
     startingPrice: "Rs 5,000",
   },
   {
     id: 22,
-    name: "Door Damping",
+    name: "Amplifier Installation",
     description:
-      "Door damping for improved sound control, reduced resonance, and a tighter cabin feel.",
-    category: "Comfort",
-    startingPrice: "Rs 1,500",
+      "Amplifier installation with safe power routing, secure mounting, and system setup.",
+    category: "Audio",
+    startingPrice: "Rs 3,500",
   },
   {
     id: 23,
@@ -231,14 +232,6 @@ export const interiorMods: Service[] = [
   },
   {
     id: 29,
-    name: "Premium Cabin Lighting",
-    description:
-      "Premium cabin lighting enhancement.",
-    category: "Lighting",
-    startingPrice: "Rs 1,500",
-  },
-  {
-    id: 30,
     name: "USB Fast Charging Ports",
     description:
       "Fast charging USB port installation.",
@@ -246,7 +239,7 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 1,500",
   },
   {
-    id: 31,
+    id: 30,
     name: "Dash Camera Installation",
     description:
       "Dash camera installation for added security.",
@@ -254,7 +247,7 @@ export const interiorMods: Service[] = [
     startingPrice: "Rs 4,500",
   },
   {
-    id: 32,
+    id: 31,
     name: "Rear Seat Display",
     description:
       "Rear seat entertainment display installation.",
