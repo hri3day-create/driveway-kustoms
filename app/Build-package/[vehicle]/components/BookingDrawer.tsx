@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
+import { createPortal } from "react-dom";
 
 import ServicePhoto from "@/components/ServicePhoto";
 
@@ -47,7 +48,7 @@ const initialForm: FormState = {
 };
 
 const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-white/[0.055] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-red-500 focus:bg-white/[0.09] focus:ring-4 focus:ring-red-500/10";
+  "w-full rounded-2xl border border-white/10 bg-white/[0.055] px-4 py-3.5 text-base text-white outline-none transition placeholder:text-white/30 focus:border-red-500 focus:bg-white/[0.09] focus:ring-4 focus:ring-red-500/10 sm:text-sm";
 const labelClass =
   "mb-2 block text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55";
 const PENDING_BOOKING_KEY = "dk_pending_booking_v1";
@@ -98,6 +99,7 @@ export default function BookingDrawer({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [bookingCode, setBookingCode] = useState("");
+  const [servicesOpen, setServicesOpen] = useState(false);
   const requestIdRef = useRef<{
     id: string;
     fingerprint: string;
@@ -113,6 +115,7 @@ export default function BookingDrawer({
     setAttempted(false);
     setSubmitError("");
     setBookingCode("");
+    setServicesOpen(false);
     onClose();
   };
 
@@ -143,6 +146,11 @@ export default function BookingDrawer({
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        if (servicesOpen) {
+          setServicesOpen(false);
+          return;
+        }
+
         if (isSubmitting) {
           return;
         }
@@ -163,7 +171,7 @@ export default function BookingDrawer({
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [isSubmitting, open, onClose]);
+  }, [isSubmitting, open, onClose, servicesOpen]);
 
   const updateField = (
     field: keyof FormState,
@@ -282,13 +290,13 @@ export default function BookingDrawer({
   const fieldError = (field: keyof typeof errors) =>
     attempted && errors[field];
 
-  if (!open) {
+  if (!open || typeof document === "undefined") {
     return null;
   }
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 isolate"
+      className="fixed inset-0 z-[100] isolate"
       role="dialog"
       aria-modal="true"
       aria-label="Reserve your vehicle"
@@ -300,7 +308,7 @@ export default function BookingDrawer({
         disabled={isSubmitting}
       />
 
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-2xl animate-[slide-in_0.45s_cubic-bezier(0.16,1,0.3,1)] flex-col overflow-hidden border-l border-white/10 bg-[#0f0f10]/96 shadow-[-24px_0_80px_rgba(0,0,0,0.5)] backdrop-blur-3xl">
+      <aside className="absolute inset-0 flex h-[100dvh] w-full max-w-none animate-[slide-in_0.45s_cubic-bezier(0.16,1,0.3,1)] flex-col overflow-hidden bg-[#0f0f10] shadow-[-24px_0_80px_rgba(0,0,0,0.5)] sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-2xl sm:border-l sm:border-white/10 sm:bg-[#0f0f10]/96 sm:backdrop-blur-3xl">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -right-20 top-0 h-72 w-72 rounded-full bg-red-500/10 blur-3xl" />
           <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-red-500/6 blur-3xl" />
@@ -400,24 +408,40 @@ export default function BookingDrawer({
                 </span>
               </div>
 
-              <div className="mt-4 space-y-2 border-t border-white/10 pt-3">
+              <div className="mt-4 border-t border-white/10 pt-3">
                 {selectedServices.length ? (
-                  selectedServices.map((service) => (
-                    <div
-                      key={service}
-                      className="flex items-center gap-3 rounded-2xl bg-black/20 px-3 py-2"
-                    >
-                      <ServicePhoto
-                        name={service}
-                        className="h-8 w-8 rounded-xl"
-                        sizes="32px"
-                      />
+                  <>
+                    <div className="space-y-2">
+                      {selectedServices.slice(0, 3).map((service) => (
+                        <div
+                          key={service}
+                          className="flex min-w-0 items-center gap-3 rounded-2xl bg-black/20 px-3 py-2"
+                        >
+                          <ServicePhoto
+                            name={service}
+                            variant="compact-thumbnail"
+                            className="rounded-xl"
+                            sizes="40px"
+                          />
 
-                      <p className="min-w-0 text-sm text-white/60">
-                        {service}
-                      </p>
+                          <p className="min-w-0 truncate text-sm text-white/70">
+                            {service}
+                          </p>
+                        </div>
+                      ))}
                     </div>
-                  ))
+
+                    <button
+                      type="button"
+                      onClick={() => setServicesOpen(true)}
+                      className="mt-3 flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-left text-sm font-medium text-white transition hover:border-red-400/40 hover:bg-white/[0.075]"
+                    >
+                      <span>View all selected services</span>
+                      <span className="rounded-full bg-red-500/15 px-2.5 py-1 text-xs text-red-200">
+                        {selectedServices.length}
+                      </span>
+                    </button>
+                  </>
                 ) : (
                   <p className="text-sm text-white/45">
                     Vehicle reservation consultation
@@ -761,6 +785,71 @@ export default function BookingDrawer({
         )}
       </aside>
 
+      {servicesOpen && (
+        <div
+          className="absolute inset-0 z-20 flex items-end justify-center bg-black/75 p-0 backdrop-blur-md sm:items-center sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label="All selected services"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setServicesOpen(false);
+            }
+          }}
+        >
+          <section className="flex max-h-[82dvh] w-full flex-col overflow-hidden rounded-t-[2rem] border border-white/10 bg-[#141416] shadow-2xl sm:max-w-lg sm:rounded-[2rem]">
+            <header className="flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-6">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-300">
+                  Your configuration
+                </p>
+                <h3 className="mt-1 text-xl font-semibold text-white">
+                  Selected services
+                </h3>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setServicesOpen(false)}
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/10 hover:text-white"
+                aria-label="Close selected services"
+              >
+                X
+              </button>
+            </header>
+
+            <div className="space-y-2 overflow-y-auto px-4 py-4 sm:px-6">
+              {selectedServices.map((service, index) => (
+                <div
+                  key={`${service}-${index}`}
+                  className="flex min-w-0 items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.045] p-3"
+                >
+                  <ServicePhoto
+                    name={service}
+                    variant="compact-thumbnail"
+                    className="rounded-xl"
+                    sizes="40px"
+                  />
+                  <p className="min-w-0 text-sm leading-5 text-white/75">
+                    {service}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <footer className="border-t border-white/10 bg-[#141416]/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:px-6">
+              <button
+                type="button"
+                onClick={() => setServicesOpen(false)}
+                className="w-full rounded-2xl bg-white px-5 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90 active:scale-[0.99]"
+              >
+                Done
+              </button>
+            </footer>
+          </section>
+        </div>
+      )}
+
       <style jsx global>{`
         @keyframes slide-in {
           from {
@@ -782,6 +871,7 @@ export default function BookingDrawer({
           }
         }
       `}</style>
-    </div>
+    </div>,
+    document.body
   );
 }

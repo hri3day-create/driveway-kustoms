@@ -3,7 +3,7 @@ import Image from "next/image";
 interface Props {
   name: string;
   category?: string;
-  variant?: "thumbnail" | "card";
+  variant?: "thumbnail" | "compact-thumbnail" | "card" | "compact-card";
   className?: string;
   imageClassName?: string;
   sizes?: string;
@@ -160,10 +160,16 @@ export default function ServicePhoto({
     return null;
   }
 
+  const sharedFrame =
+    "relative block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_14px_35px_rgba(0,0,0,0.28)]";
   const frameClass =
     variant === "card"
-      ? "relative block aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_14px_35px_rgba(0,0,0,0.28)]"
-      : "relative block h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_14px_35px_rgba(0,0,0,0.28)]";
+      ? `${sharedFrame} aspect-[4/3] w-full`
+      : variant === "compact-card"
+        ? `${sharedFrame} h-[5.5rem] w-full sm:h-auto sm:aspect-[4/3]`
+        : variant === "compact-thumbnail"
+          ? `${sharedFrame} h-10 w-10 shrink-0 sm:h-14 sm:w-14`
+          : `${sharedFrame} h-14 w-14 shrink-0`;
 
   return (
     <span

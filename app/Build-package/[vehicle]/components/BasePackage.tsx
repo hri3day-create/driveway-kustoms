@@ -10,8 +10,9 @@ export default function BasePackage() {
           <ServicePhoto
             name="Premium Detailing"
             category="Detailing"
-            className="h-16 w-16 rounded-[1.15rem]"
-            sizes="64px"
+            variant="compact-thumbnail"
+            className="rounded-xl sm:rounded-[1.15rem]"
+            sizes="(max-width: 640px) 40px, 56px"
           />
 
           <div>

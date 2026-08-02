@@ -89,8 +89,8 @@ export default function VehicleConfigurator({
         </div>
       )}
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <div className="mt-8 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(19rem,1fr)]">
+        <div className="min-w-0">
           {selectedCategory === "detailing" && (
             <Detailing
               selected={selected}
@@ -120,7 +120,7 @@ export default function VehicleConfigurator({
           )}
         </div>
 
-        <div className="h-fit lg:sticky lg:top-24">
+        <div className="min-w-0 lg:sticky lg:top-24 lg:h-fit">
           <Summary
             vehicle={vehicle}
             selected={selected}

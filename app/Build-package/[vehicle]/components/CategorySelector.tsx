@@ -62,10 +62,10 @@ export default function CategorySelector({
               key={category.id}
               onClick={() => onSelect(category.id)}
               aria-pressed={active}
-              className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[1.25rem] border p-2.5 text-left transition-all duration-300 sm:rounded-[1.6rem] sm:p-4 ${
+                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[1.25rem] border p-2.5 text-left transition-all duration-300 sm:rounded-[1.6rem] sm:p-4 ${
                 active
                   ? "border-red-500 bg-red-500/10 shadow-[0_0_30px_rgba(239,68,68,0.18)]"
-                  : "border-white/10 bg-white/[0.035] hover:-translate-y-1 hover:border-white/20"
+                  : "border-white/10 bg-white/[0.035] hover:border-white/20 sm:hover:-translate-y-1"
               }`}
             >
               {active && (
@@ -77,7 +77,7 @@ export default function CategorySelector({
               <ServicePhoto
                 name={category.title}
                 category={category.title}
-                variant="card"
+                variant="compact-card"
                 className={`mb-3 rounded-xl transition-all sm:mb-4 sm:rounded-2xl ${
                   active ? "border-red-500/60" : "group-hover:border-red-500/40"
                 }`}

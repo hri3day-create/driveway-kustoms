@@ -58,7 +58,7 @@ export default function Summary({
 
   return (
     <>
-      <aside className="overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.035] lg:sticky lg:top-24">
+      <aside className="hidden min-w-0 overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.035] lg:block">
         <div className="border-b border-white/10 p-5">
           <h2 className="text-xl font-semibold text-white">
             Booking Summary
@@ -139,7 +139,7 @@ export default function Summary({
               Grand Total
             </p>
 
-            <h2 className="mt-1 text-4xl font-bold text-white">
+            <h2 className="mt-1 break-words text-4xl font-bold text-white">
               Rs {total.toLocaleString("en-IN")}
             </h2>
           </div>
@@ -156,6 +156,33 @@ export default function Summary({
           </p>
         </div>
       </aside>
+
+      <div className="h-20 lg:hidden" aria-hidden="true" />
+
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#0b0b0b]/95 px-3 pb-[max(0.7rem,env(safe-area-inset-bottom))] pt-2.5 shadow-[0_-18px_50px_rgba(0,0,0,0.55)] backdrop-blur-xl lg:hidden">
+        <div className="mx-auto flex max-w-2xl items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition active:bg-white/[0.08]"
+          >
+            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+              {selected.length} service{selected.length === 1 ? "" : "s"} · tap to review
+            </p>
+            <p className="mt-0.5 truncate text-lg font-bold text-white">
+              Rs {total.toLocaleString("en-IN")}
+            </p>
+          </button>
+
+          <button
+            type="button"
+            onClick={onContinue}
+            className="inline-flex min-h-[3.3rem] shrink-0 items-center justify-center rounded-xl bg-red-600 px-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(220,38,38,0.28)] transition active:scale-[0.98] active:bg-red-700"
+          >
+            Book now
+          </button>
+        </div>
+      </div>
 
       {open && (
         <div
@@ -205,8 +232,9 @@ export default function Summary({
                       <ServicePhoto
                         name={service.name}
                         category={service.category}
-                        className="h-10 w-10 rounded-xl"
-                        sizes="40px"
+                        variant="compact-thumbnail"
+                        className="rounded-lg sm:rounded-xl"
+                        sizes="(max-width: 640px) 40px, 56px"
                       />
 
                       <div className="min-w-0">
