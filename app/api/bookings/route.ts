@@ -18,6 +18,7 @@ import {
   findBookingByRequestId,
 } from "@/lib/db";
 import { notifyBookingOwner } from "@/lib/whatsapp";
+import { notifyBookingPushSubscribers } from "@/lib/push-notifications";
 
 export const runtime = "nodejs";
 
@@ -66,6 +67,16 @@ async function notifyOwnerSafely(
     await notifyBookingOwner(booking, immediate);
   } catch {
     // The booking is already durable. Alert retry remains available to admin.
+  }
+}
+
+async function notifyPushSafely(
+  booking: Parameters<typeof notifyBookingPushSubscribers>[0]
+) {
+  try {
+    await notifyBookingPushSubscribers(booking);
+  } catch {
+    // The booking is durable even if a device notification cannot be delivered.
   }
 }
 
@@ -220,6 +231,9 @@ export async function POST(request: NextRequest) {
     }
 
     await notifyOwnerSafely(result.booking, result.created);
+    if (result.created) {
+      await notifyPushSafely(result.booking);
+    }
 
     return noStoreJson(
       {

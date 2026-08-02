@@ -67,3 +67,13 @@ CREATE TABLE IF NOT EXISTS booking_rate_limits (
 
 CREATE INDEX IF NOT EXISTS booking_rate_limits_expiry_idx
   ON booking_rate_limits (expires_at);
+
+CREATE TABLE IF NOT EXISTS admin_push_subscriptions (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  endpoint text NOT NULL UNIQUE,
+  p256dh text NOT NULL,
+  auth text NOT NULL,
+  user_agent text NOT NULL DEFAULT '',
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);

@@ -5,6 +5,15 @@ export const metadata: Metadata = {
   title: "Driveway Kustoms",
   description:
     "Premium doorstep detailing and automotive customization built around your vehicle.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "DK Orders",
+    statusBarStyle: "black-translucent",
+  },
+  icons: {
+    apple: "/app-icon-192.png",
+  },
 };
 
 export default function RootLayout({

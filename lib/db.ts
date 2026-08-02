@@ -46,6 +46,14 @@ interface BookingRow extends Record<string, unknown> {
   updated_at: string;
 }
 
+export interface StoredPushSubscription {
+  endpoint: string;
+  keys: {
+    p256dh: string;
+    auth: string;
+  };
+}
+
 let client: SqlClient | null = null;
 let schemaInitialization: Promise<void> | null = null;
 
@@ -74,10 +82,19 @@ async function initializeDatabase(sql: SqlClient) {
   const existing = (await sql`
     SELECT
       to_regclass('public.bookings') AS bookings,
-      to_regclass('public.booking_rate_limits') AS rate_limits
-  `) as Array<{ bookings: string | null; rate_limits: string | null }>;
+      to_regclass('public.booking_rate_limits') AS rate_limits,
+      to_regclass('public.admin_push_subscriptions') AS push_subscriptions
+  `) as Array<{
+    bookings: string | null;
+    rate_limits: string | null;
+    push_subscriptions: string | null;
+  }>;
 
-  if (existing[0]?.bookings && existing[0]?.rate_limits) {
+  if (
+    existing[0]?.bookings &&
+    existing[0]?.rate_limits &&
+    existing[0]?.push_subscriptions
+  ) {
     return;
   }
 
@@ -158,6 +175,18 @@ async function initializeDatabase(sql: SqlClient) {
   await sql`
     CREATE INDEX IF NOT EXISTS booking_rate_limits_expiry_idx
       ON booking_rate_limits (expires_at)
+  `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS admin_push_subscriptions (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      endpoint text NOT NULL UNIQUE,
+      p256dh text NOT NULL,
+      auth text NOT NULL,
+      user_agent text NOT NULL DEFAULT '',
+      created_at timestamptz NOT NULL DEFAULT now(),
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )
   `;
 }
 
@@ -495,4 +524,66 @@ export async function consumeRateLimit(
     remaining: Math.max(0, limit - requestCount),
     retryAfterSeconds,
   };
+}
+
+export async function savePushSubscription(
+  subscription: StoredPushSubscription,
+  userAgent: string
+) {
+  const sql = await getReadyDatabase();
+
+  await sql`
+    INSERT INTO admin_push_subscriptions (
+      endpoint,
+      p256dh,
+      auth,
+      user_agent
+    ) VALUES (
+      ${subscription.endpoint},
+      ${subscription.keys.p256dh},
+      ${subscription.keys.auth},
+      ${userAgent.slice(0, 500)}
+    )
+    ON CONFLICT (endpoint) DO UPDATE SET
+      p256dh = EXCLUDED.p256dh,
+      auth = EXCLUDED.auth,
+      user_agent = EXCLUDED.user_agent,
+      updated_at = now()
+  `;
+}
+
+export async function removePushSubscription(endpoint: string) {
+  const sql = await getReadyDatabase();
+  await sql`
+    DELETE FROM admin_push_subscriptions
+    WHERE endpoint = ${endpoint}
+  `;
+}
+
+export async function removePushSubscriptions(endpoints: string[]) {
+  if (endpoints.length === 0) {
+    return;
+  }
+
+  const sql = await getReadyDatabase();
+  await sql`
+    DELETE FROM admin_push_subscriptions
+    WHERE endpoint IN (
+      SELECT jsonb_array_elements_text(${JSON.stringify(endpoints)}::jsonb)
+    )
+  `;
+}
+
+export async function listPushSubscriptions(): Promise<StoredPushSubscription[]> {
+  const sql = await getReadyDatabase();
+  const rows = (await sql`
+    SELECT endpoint, p256dh, auth
+    FROM admin_push_subscriptions
+    ORDER BY updated_at DESC
+  `) as Array<{ endpoint: string; p256dh: string; auth: string }>;
+
+  return rows.map((row) => ({
+    endpoint: row.endpoint,
+    keys: { p256dh: row.p256dh, auth: row.auth },
+  }));
 }

@@ -20,6 +20,7 @@ import {
   type BookingStatus,
   type WhatsAppNotificationStatus,
 } from "@/lib/booking-types";
+import NotificationSetup from "./NotificationSetup";
 
 interface Props {
   initialBookings: BookingRecord[];
@@ -595,6 +596,8 @@ export default function OrdersDashboard({ initialBookings }: Props) {
             </button>
           </div>
         </header>
+
+        <NotificationSetup />
 
         <section className="mt-7 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {[
