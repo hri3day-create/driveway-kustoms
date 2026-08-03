@@ -100,7 +100,7 @@ const serviceImages: Record<string, string> = {
   "Bonnet Wrap": "wrap-hood.jpg",
   "Roof Wrap": "roof-film.jpg",
   "PPF (Paint Protection Film)": "ppf-door.jpg",
-  "Ceramic Coating": "coating-bottles-labelled-v2.webp",
+  "Ceramic Coating": "ceramic-coating-bottle-v3.webp",
   "Front Lip / Splitter Installation": "front-lip-splitter-v2.webp",
   "Side Skirt Installation": "side-skirt.jpg",
   "Rear Diffuser Installation": "illuminated-rear-diffuser-v2.webp",
@@ -122,7 +122,7 @@ const serviceImages: Record<string, string> = {
 
   // Paint protection services
   "Paint Protection Film (PPF)": "ppf-door.jpg",
-  "Graphene Coating": "coating-bottles-labelled-v2.webp",
+  "Graphene Coating": "graphene-coating-bottle-v3.webp",
   "Windshield Protection Film": "windshield-protection-film-v2.webp",
   "Headlight Protection Film": "headlight-protection.jpg",
   "Door Edge PPF": "ppf-door.jpg",
@@ -130,11 +130,11 @@ const serviceImages: Record<string, string> = {
   "Roof PPF": "roof-film.jpg",
   "Gloss Paint Protection Film": "protective-film-team.jpg",
   "Matte Paint Protection Film": "protective-film-team.jpg",
-  "Ceramic Window Coating": "coating-bottles-labelled-v2.webp",
-  "Leather Ceramic Coating": "coating-bottles-labelled-v2.webp",
-  "Alloy Wheel Ceramic Coating": "coating-bottles-labelled-v2.webp",
-  "Plastic Trim Ceramic Coating": "coating-bottles-labelled-v2.webp",
-  "Fabric Protection Coating": "coating-bottles-labelled-v2.webp",
+  "Ceramic Window Coating": "window-ceramic-bottle-v3.webp",
+  "Leather Ceramic Coating": "leather-ceramic-bottle-v3.webp",
+  "Alloy Wheel Ceramic Coating": "wheel-ceramic-bottle-v3.webp",
+  "Plastic Trim Ceramic Coating": "trim-ceramic-bottle-v3.webp",
+  "Fabric Protection Coating": "fabric-protection-bottle-v3.webp",
 };
 
 export function getServicePhoto(name: string, category = "") {
