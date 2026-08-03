@@ -127,9 +127,9 @@ export const exteriorMods: Service[] = [
   },
   {
     id: 16,
-    name: "Door Visors Installation",
+    name: "Rain Visor Installation",
     description:
-      "Door visor installation service.",
+      "Smoked rain visor installation with clean, vehicle-specific window-frame fitment.",
     category: "Exterior",
     startingPrice: "Rs 1,500",
   },
@@ -151,9 +151,9 @@ export const exteriorMods: Service[] = [
   },
   {
     id: 19,
-    name: "Window Chrome Garnish",
+    name: "Chrome Garnish",
     description:
-      "Window chrome garnish styling upgrade.",
+      "Tasteful chrome garnish styling for compatible window lines and exterior trim.",
     category: "Styling",
     startingPrice: "Rs 2,000",
   },
