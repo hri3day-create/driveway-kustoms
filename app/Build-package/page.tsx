@@ -15,13 +15,12 @@ export default function BuildPackagePage() {
             </p>
 
             <h1 className="mt-3 text-[2.35rem] font-semibold leading-[1.02] tracking-[-0.04em] sm:text-6xl">
-              Build your vehicle package.
+              Book your car care in minutes.
             </h1>
 
             <p className="mt-5 text-sm leading-7 text-zinc-400 sm:text-lg sm:leading-8">
-              Choose your vehicle first, then we will take
-              you into the detailing, interior, exterior, and
-              protection options built for that category.
+              Start with your vehicle, choose only what you need, and send a
+              reservation request. No payment is taken online.
             </p>
           </div>
 

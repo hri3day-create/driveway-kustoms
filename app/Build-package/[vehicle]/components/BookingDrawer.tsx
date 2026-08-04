@@ -122,15 +122,12 @@ export default function BookingDrawer({
   const errors = useMemo(
     () => ({
       firstName: !form.firstName.trim(),
-      lastName: !form.lastName.trim(),
       email:
         Boolean(form.email.trim()) &&
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email),
       phone: form.phone.replace(/\D/g, "").length < 10,
       vehicleModel: !form.vehicleModel.trim(),
-      address: !form.address.trim(),
       city: !form.city.trim(),
-      postcode: !form.postcode.trim(),
       date: !form.date || form.date < localDate(),
       time: !form.time,
     }),
@@ -194,15 +191,15 @@ export default function BookingDrawer({
     try {
       const bookingPayload = {
         firstName: form.firstName,
-        lastName: form.lastName,
+        lastName: form.lastName.trim() || "-",
         email: form.email,
         phone: form.phone,
         vehicle,
         vehicleModel: form.vehicleModel,
         registration: form.registration,
-        address: form.address,
+        address: form.address.trim() || `${form.city} - confirm exact address by phone`,
         city: form.city,
-        postcode: form.postcode,
+        postcode: form.postcode.trim() || "-",
         date: form.date,
         time: form.time,
         notes: form.notes,
@@ -451,14 +448,19 @@ export default function BookingDrawer({
             </section>
 
             <section className="mt-7">
-              <h3 className="text-base font-medium text-white">
-                Contact details
-              </h3>
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="text-base font-medium text-white">
+                  Tell us where to call
+                </h3>
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                  About 1 minute
+                </span>
+              </div>
 
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label className={labelClass} htmlFor="firstName">
-                    First name
+                    Your name
                   </label>
                   <input
                     id="firstName"
@@ -468,68 +470,23 @@ export default function BookingDrawer({
                       updateField("firstName", e.target.value)
                     }
                     className={inputClass}
-                    placeholder="Alex"
+                    placeholder="Your name"
                   />
                   {fieldError("firstName") && (
                     <p className="mt-1.5 text-xs text-rose-300">
-                      First name is required.
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className={labelClass} htmlFor="lastName">
-                    Last name
-                  </label>
-                  <input
-                    id="lastName"
-                    autoComplete="family-name"
-                    value={form.lastName}
-                    onChange={(e) =>
-                      updateField("lastName", e.target.value)
-                    }
-                    className={inputClass}
-                    placeholder="Morgan"
-                  />
-                  {fieldError("lastName") && (
-                    <p className="mt-1.5 text-xs text-rose-300">
-                      Last name is required.
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className={labelClass} htmlFor="email">
-                    Email{" "}
-                    <span className="normal-case tracking-normal text-white/30">
-                      (optional)
-                    </span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    autoComplete="email"
-                    value={form.email}
-                    onChange={(e) =>
-                      updateField("email", e.target.value)
-                    }
-                    className={inputClass}
-                    placeholder="alex@example.com"
-                  />
-                  {fieldError("email") && (
-                    <p className="mt-1.5 text-xs text-rose-300">
-                      Enter a valid email.
+                      Tell us your name.
                     </p>
                   )}
                 </div>
 
                 <div>
                   <label className={labelClass} htmlFor="phone">
-                    Phone
+                    WhatsApp / phone number
                   </label>
                   <input
                     id="phone"
                     type="tel"
+                    inputMode="tel"
                     autoComplete="tel"
                     value={form.phone}
                     onChange={(e) =>
@@ -549,7 +506,7 @@ export default function BookingDrawer({
 
             <section className="mt-7">
               <h3 className="text-base font-medium text-white">
-                Vehicle details
+                Your car and location
               </h3>
 
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -575,56 +532,8 @@ export default function BookingDrawer({
                 </div>
 
                 <div>
-                  <label className={labelClass} htmlFor="registration">
-                    Registration{" "}
-                    <span className="normal-case tracking-normal text-white/30">
-                      (optional)
-                    </span>
-                  </label>
-                  <input
-                    id="registration"
-                    autoComplete="off"
-                    value={form.registration}
-                    onChange={(event) =>
-                      updateField("registration", event.target.value.toUpperCase())
-                    }
-                    className={`${inputClass} uppercase`}
-                    placeholder="DL 01 AB 1234"
-                  />
-                </div>
-              </div>
-            </section>
-
-            <section className="mt-7">
-              <h3 className="text-base font-medium text-white">
-                Delivery address
-              </h3>
-
-              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label className={labelClass} htmlFor="address">
-                    Street address
-                  </label>
-                  <input
-                    id="address"
-                    autoComplete="street-address"
-                    value={form.address}
-                    onChange={(e) =>
-                      updateField("address", e.target.value)
-                    }
-                    className={inputClass}
-                    placeholder="123 Park Avenue"
-                  />
-                  {fieldError("address") && (
-                    <p className="mt-1.5 text-xs text-rose-300">
-                      Address is required.
-                    </p>
-                  )}
-                </div>
-
-                <div>
                   <label className={labelClass} htmlFor="city">
-                    City
+                    Area / city
                   </label>
                   <input
                     id="city"
@@ -634,32 +543,11 @@ export default function BookingDrawer({
                       updateField("city", e.target.value)
                     }
                     className={inputClass}
-                    placeholder="Mumbai"
+                    placeholder="Your area or city"
                   />
                   {fieldError("city") && (
                     <p className="mt-1.5 text-xs text-rose-300">
-                      City is required.
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className={labelClass} htmlFor="postcode">
-                    Postal code
-                  </label>
-                  <input
-                    id="postcode"
-                    autoComplete="postal-code"
-                    value={form.postcode}
-                    onChange={(e) =>
-                      updateField("postcode", e.target.value)
-                    }
-                    className={inputClass}
-                    placeholder="400001"
-                  />
-                  {fieldError("postcode") && (
-                    <p className="mt-1.5 text-xs text-rose-300">
-                      Postal code is required.
+                      Tell us your service area.
                     </p>
                   )}
                 </div>
@@ -730,26 +618,35 @@ export default function BookingDrawer({
               </div>
             </section>
 
-            <section className="mt-7">
-              <label className={labelClass} htmlFor="notes">
-                A note for your concierge{" "}
-                <span className="normal-case tracking-normal text-white/30">
-                  (optional)
-                </span>
-              </label>
+            <details className="group mt-7 rounded-2xl border border-white/10 bg-white/[0.025] p-4 sm:p-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium text-white/75">
+                Add more details <span className="text-xs font-normal text-white/35">Optional +</span>
+              </summary>
 
-              <textarea
-                id="notes"
-                rows={3}
-                maxLength={500}
-                value={form.notes}
-                onChange={(e) =>
-                  updateField("notes", e.target.value)
-                }
-                className={`${inputClass} resize-none`}
-                placeholder="Tell us anything that will make your experience exceptional."
-              />
-            </section>
+              <div className="mt-5 grid grid-cols-1 gap-4 border-t border-white/10 pt-5 sm:grid-cols-2">
+                <div>
+                  <label className={labelClass} htmlFor="email">Email</label>
+                  <input id="email" type="email" autoComplete="email" value={form.email} onChange={(e) => updateField("email", e.target.value)} className={inputClass} placeholder="you@example.com" />
+                  {fieldError("email") && <p className="mt-1.5 text-xs text-rose-300">Enter a valid email.</p>}
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="registration">Registration</label>
+                  <input id="registration" value={form.registration} onChange={(e) => updateField("registration", e.target.value.toUpperCase())} className={`${inputClass} uppercase`} placeholder="MH 01 AB 1234" />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className={labelClass} htmlFor="address">Exact address</label>
+                  <input id="address" autoComplete="street-address" value={form.address} onChange={(e) => updateField("address", e.target.value)} className={inputClass} placeholder="Can also be confirmed on call" />
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="postcode">Postal code</label>
+                  <input id="postcode" inputMode="numeric" autoComplete="postal-code" value={form.postcode} onChange={(e) => updateField("postcode", e.target.value)} className={inputClass} placeholder="400001" />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className={labelClass} htmlFor="notes">Anything we should know?</label>
+                  <textarea id="notes" rows={3} maxLength={500} value={form.notes} onChange={(e) => updateField("notes", e.target.value)} className={`${inputClass} resize-none`} placeholder="Special requests or questions" />
+                </div>
+              </div>
+            </details>
 
             <div className="sticky bottom-0 -mx-4 mt-8 border-t border-white/10 bg-[#0f0f10]/92 px-4 pb-2 pt-5 backdrop-blur-xl sm:-mx-8 sm:px-8">
               {submitError && (
@@ -772,13 +669,13 @@ export default function BookingDrawer({
                     Saving booking
                   </>
                 ) : (
-                  <>Request reservation</>
+                  <>Reserve my slot</>
                 )}
               </button>
 
               <p className="mt-3 text-center text-[11px] leading-4 text-white/35">
-                This only sends a booking request. No online
-                payment is required.
+                Reserve with confidence — no online payment is required.
+                We confirm every detail with you personally.
               </p>
             </div>
           </form>

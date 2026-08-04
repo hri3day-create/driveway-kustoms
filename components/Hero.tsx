@@ -55,7 +55,7 @@ export default function Hero() {
               href="/Build-package"
               className="group inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-red-600 px-7 py-4 text-sm font-semibold text-white shadow-[0_16px_50px_rgba(220,38,38,0.32)] transition duration-300 hover:-translate-y-0.5 hover:bg-red-500"
             >
-              Build Your Package
+              Book in 2 minutes
               <ArrowRight size={17} className="transition group-hover:translate-x-1" aria-hidden="true" />
             </Link>
 
@@ -66,6 +66,10 @@ export default function Hero() {
               Explore All Services
             </Link>
           </div>
+
+          <p className="mt-4 text-center text-[11px] font-medium tracking-wide text-zinc-500 sm:text-left">
+            A reservation, not a transaction. No online payment required.
+          </p>
         </div>
 
         <div className="relative mx-auto w-full max-w-2xl lg:mx-0 lg:max-w-none">

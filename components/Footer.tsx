@@ -29,7 +29,7 @@ export default function Footer() {
             href="/Build-package"
             className="group mt-7 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-red-600 px-7 text-sm font-semibold shadow-[0_15px_45px_rgba(220,38,38,0.3)] transition hover:-translate-y-0.5 hover:bg-red-500 sm:w-auto"
           >
-            Build Your Package
+            Reserve Your Slot
             <ArrowRight size={17} className="transition group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </section>

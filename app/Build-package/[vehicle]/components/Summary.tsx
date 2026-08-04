@@ -44,6 +44,7 @@ export default function Summary({
   const selectedSummary = selected.length
     ? selected.map((service) => service.name).join(" / ")
     : "No services selected";
+  const canContinue = showBasePackage || selected.length > 0;
 
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
@@ -146,9 +147,10 @@ export default function Summary({
 
           <button
             onClick={onContinue}
-            className="w-full rounded-2xl bg-red-600 py-4 font-semibold text-white transition hover:bg-red-700"
+            disabled={!canContinue}
+            className="w-full rounded-2xl bg-red-600 py-4 font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35"
           >
-            Continue Booking
+            {canContinue ? "Continue Booking" : "Select a service first"}
           </button>
 
           <p className="text-center text-xs text-zinc-500">
@@ -177,9 +179,10 @@ export default function Summary({
           <button
             type="button"
             onClick={onContinue}
-            className="inline-flex min-h-[3.3rem] shrink-0 items-center justify-center rounded-xl bg-red-600 px-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(220,38,38,0.28)] transition active:scale-[0.98] active:bg-red-700"
+            disabled={!canContinue}
+            className="inline-flex min-h-[3.3rem] shrink-0 items-center justify-center rounded-xl bg-red-600 px-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(220,38,38,0.28)] transition active:scale-[0.98] active:bg-red-700 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35 disabled:shadow-none"
           >
-            Book now
+            {canContinue ? "Book now" : "Select first"}
           </button>
         </div>
       </div>

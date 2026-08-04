@@ -1,6 +1,13 @@
 import Navbar from "@/components/Navbar";
 
 import VehicleConfigurator from "./VehicleConfigurator";
+import { vehicles } from "../data/vehicles";
+
+export function generateStaticParams() {
+  return vehicles.map((vehicle) => ({ vehicle: vehicle.slug }));
+}
+
+export const dynamicParams = false;
 
 interface VehiclePageProps {
   params: Promise<{
@@ -29,9 +36,8 @@ export default async function VehiclePage({
             </h1>
 
             <p className="mt-5 text-sm leading-7 text-zinc-400 sm:text-lg sm:leading-8">
-              Choose the category, select what you want, and
-              send your reservation request once your package
-              feels right.
+              Start with our most popular options, add what feels right, then
+              reserve your preferred slot. No payment is required to book.
             </p>
           </div>
 

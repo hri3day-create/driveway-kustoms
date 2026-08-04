@@ -26,8 +26,11 @@ export default function ServiceList({
   showStartingPrice = false,
 }: Props) {
   const [search, setSearch] = useState("");
+  const [showAll, setShowAll] = useState(false);
 
-  const filteredServices = services.filter((service) => {
+  const filteredServices = [...services]
+    .sort((first, second) => Number(second.popular) - Number(first.popular))
+    .filter((service) => {
     const query = search.trim().toLowerCase();
 
     if (!query) {
@@ -43,7 +46,11 @@ export default function ServiceList({
       .join(" ")
       .toLowerCase()
       .includes(query);
-  });
+    });
+  const visibleServices =
+    search.trim() || showAll
+      ? filteredServices
+      : filteredServices.slice(0, 6);
 
   return (
     <section className="mt-8">
@@ -82,7 +89,7 @@ export default function ServiceList({
         </div>
       ) : (
         <div className="mt-6 grid grid-cols-2 items-stretch gap-2.5 sm:mt-8 sm:gap-5 xl:grid-cols-3">
-          {filteredServices.map((service) => {
+          {visibleServices.map((service) => {
           const active = selected.some(
             (item) => item.name === service.name
           );
@@ -190,6 +197,18 @@ export default function ServiceList({
           );
           })}
         </div>
+      )}
+
+      {!search.trim() && filteredServices.length > 6 && (
+        <button
+          type="button"
+          onClick={() => setShowAll((current) => !current)}
+          className="mt-5 flex min-h-12 w-full items-center justify-center rounded-2xl border border-white/10 bg-white/[0.035] px-5 text-sm font-semibold text-white transition hover:border-red-500/40 hover:bg-white/[0.06]"
+        >
+          {showAll
+            ? "Show popular services only"
+            : `Browse all ${filteredServices.length} services`}
+        </button>
       )}
     </section>
   );

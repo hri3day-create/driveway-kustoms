@@ -6,12 +6,13 @@ import Testimonials from "@/components/Testimonials";
 import CarModsPreview from "@/components/CarModsPreview";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import QuickBookingBar from "@/components/QuickBookingBar";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="overflow-hidden">
+      <main className="overflow-hidden pb-20 lg:pb-0">
         <Hero />
         <div className="border-y border-white/[0.07] bg-black/45 px-4 py-4 text-white backdrop-blur-xl sm:px-6 sm:py-5">
           <div className="mx-auto grid max-w-7xl grid-cols-3 divide-x divide-white/10 text-center">
@@ -36,6 +37,7 @@ export default function Home() {
         <FAQ />
       </main>
       <Footer />
+      <QuickBookingBar />
     </>
   );
 }

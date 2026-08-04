@@ -18,12 +18,12 @@ export default function VehicleCard() {
           </div>
 
           <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
-            What do you drive?
+            First, what do you drive?
           </h2>
 
           <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base sm:leading-7">
-            Choose the closest body style. Your services and
-            pricing will be tailored around it.
+            One tap takes you to curated popular services for that body style.
+            You can browse the full catalogue only if you want to.
           </p>
         </div>
 
@@ -82,6 +82,10 @@ export default function VehicleCard() {
         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
         Tap the body style closest to your car to continue.
       </div>
+
+      <p className="mt-5 text-center text-xs font-medium tracking-wide text-white/35 sm:text-sm">
+        Reserve now, decide with confidence — no online payment required.
+      </p>
     </section>
   );
 }
