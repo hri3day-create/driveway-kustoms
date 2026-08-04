@@ -96,6 +96,7 @@ const serviceImages: Record<string, string> = {
   // Exterior mods
   "Gloss Black Roof Wrap": "roof-film.jpg",
   "Chrome Delete": "chrome-delete-v2.webp",
+  "Base Model to Top Model Conversion": "base-to-top-model-conversion-v1.webp",
   "Full Body Wrap": "wrap-install.jpg",
   "Bonnet Wrap": "wrap-hood.jpg",
   "Roof Wrap": "roof-film.jpg",

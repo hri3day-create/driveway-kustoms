@@ -2,6 +2,16 @@ import { Service } from "../types";
 
 export const exteriorMods: Service[] = [
   {
+    id: 0,
+    name: "Base Model to Top Model Conversion",
+    description:
+      "A tailored upgrade package that transforms compatible base variants with top-model-style lighting, grille, alloys, exterior trim, cabin features, and technology options.",
+    category: "Upgrade Package",
+    startingPrice: "Rs 25,000",
+    note: "Final scope and price depend on your vehicle, variant, and compatible OEM-style upgrades.",
+    popular: true,
+  },
+  {
     id: 1,
     name: "Chrome Delete",
     description:
