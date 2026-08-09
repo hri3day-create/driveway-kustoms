@@ -55,15 +55,15 @@ export default function Hero() {
               href="/book"
               className="group inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-red-600 px-7 py-4 text-sm font-semibold text-white shadow-[0_16px_50px_rgba(220,38,38,0.32)] transition duration-300 hover:-translate-y-0.5 hover:bg-red-500"
             >
-              Quick book
+              Book a Callback
               <ArrowRight size={17} className="transition group-hover:translate-x-1" aria-hidden="true" />
             </Link>
 
             <Link
-              href="/services"
+              href="/Build-package"
               className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/15 bg-white/[0.045] px-7 py-4 text-sm font-semibold text-white transition duration-300 hover:border-white/30 hover:bg-white/[0.08] sm:backdrop-blur-xl"
             >
-              Explore All Services
+              Build Your Package
             </Link>
           </div>
 

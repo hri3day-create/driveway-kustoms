@@ -18,7 +18,7 @@ export default function QuickBookingPage() {
         </Link>
 
         <div className="mb-7 mt-5">
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-red-400">Quick booking</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-red-400">Book a callback</p>
           <h1 className="mt-3 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">Tell us about your car.</h1>
           <p className="mt-3 flex items-center gap-2 text-sm leading-6 text-zinc-400">
             <Clock3 size={16} className="text-red-400" /> Five details. Less than one minute.

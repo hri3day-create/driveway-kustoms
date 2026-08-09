@@ -103,7 +103,7 @@ export default function QuickBookingForm() {
       {error && <p role="alert" className="mt-4 rounded-xl bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{error}</p>}
 
       <button disabled={!valid || submitting} className="mt-6 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-red-600 px-5 text-base font-semibold text-white shadow-[0_15px_40px_rgba(220,38,38,0.28)] transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500">
-        {submitting ? <><LoaderCircle size={19} className="animate-spin" /> Sending request</> : "Request my callback"}
+        {submitting ? <><LoaderCircle size={19} className="animate-spin" /> Sending request</> : "Book my callback"}
       </button>
 
       <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] text-zinc-500">

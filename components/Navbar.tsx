@@ -48,7 +48,7 @@ export default function Navbar() {
               href="/book"
               className="ml-2 rounded-full border border-red-500/70 bg-red-500/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-500 hover:text-white"
             >
-              Book now
+              Book a Callback
             </Link>
           </div>
 
@@ -85,7 +85,7 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(false)}
                 className="mt-1 rounded-2xl bg-red-600 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-red-500"
               >
-                Quick Book
+                Book a Callback
               </Link>
             </div>
           </div>
