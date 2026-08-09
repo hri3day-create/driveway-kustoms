@@ -129,6 +129,7 @@ function OrderCard({
   onStatusChange: (bookingId: string, status: BookingStatus) => void;
   onRetryWhatsApp: (bookingId: string) => void;
 }) {
+  const isQuickBooking = booking.notes.startsWith("[QUICK BOOKING]");
   const customerName = `${booking.firstName} ${booking.lastName}`.trim();
   const address = [booking.address, booking.city, booking.postcode]
     .filter(Boolean)
@@ -161,9 +162,9 @@ function OrderCard({
           </div>
 
           <p className="shrink-0 text-right text-lg font-semibold text-white">
-            {currency.format(booking.totalAmount)}
+            {isQuickBooking ? "Callback" : currency.format(booking.totalAmount)}
             <span className="block text-[10px] font-medium uppercase tracking-wider text-zinc-500">
-              Estimated
+              {isQuickBooking ? "Quick booking" : "Estimated"}
             </span>
           </p>
         </div>
@@ -193,9 +194,11 @@ function OrderCard({
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
                   Vehicle / model
                 </p>
-                <p className="mt-1 capitalize text-sm font-medium text-white">
-                  {booking.vehicle.replace(/-/g, " ")}
-                </p>
+                {!isQuickBooking && (
+                  <p className="mt-1 capitalize text-sm font-medium text-white">
+                    {booking.vehicle.replace(/-/g, " ")}
+                  </p>
+                )}
                 {booking.vehicleModel && (
                   <p className="mt-0.5 text-xs text-zinc-300">
                     {booking.vehicleModel}
@@ -215,13 +218,19 @@ function OrderCard({
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
                   Requested schedule
                 </p>
-                <p className="mt-1 text-sm font-medium text-white">
-                  {formatDate(booking.appointmentDate)}
-                </p>
-                <p className="mt-0.5 flex items-center gap-1 text-xs text-zinc-400">
-                  <Clock3 size={12} />
-                  {formatTime(booking.appointmentTime)}
-                </p>
+                {isQuickBooking ? (
+                  <p className="mt-1 text-sm font-medium text-amber-200">Call to schedule</p>
+                ) : (
+                  <>
+                    <p className="mt-1 text-sm font-medium text-white">
+                      {formatDate(booking.appointmentDate)}
+                    </p>
+                    <p className="mt-0.5 flex items-center gap-1 text-xs text-zinc-400">
+                      <Clock3 size={12} />
+                      {formatTime(booking.appointmentTime)}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -322,7 +331,7 @@ function OrderCard({
               Customer note
             </p>
             <p className="mt-1.5 whitespace-pre-wrap text-sm leading-6 text-zinc-300">
-              {booking.notes}
+              {booking.notes.replace(/^\[QUICK BOOKING\]\n?/, "")}
             </p>
           </div>
         )}

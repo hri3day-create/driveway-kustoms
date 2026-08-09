@@ -14,7 +14,7 @@ export default function Home() {
       <Navbar />
       <main className="overflow-hidden pb-20 lg:pb-0">
         <Hero />
-        <div className="border-y border-white/[0.07] bg-black/45 px-4 py-4 text-white backdrop-blur-xl sm:px-6 sm:py-5">
+        <div className="border-y border-white/[0.07] bg-black/80 px-4 py-4 text-white sm:bg-black/45 sm:px-6 sm:py-5 sm:backdrop-blur-xl">
           <div className="mx-auto grid max-w-7xl grid-cols-3 divide-x divide-white/10 text-center">
             <div className="px-2">
               <p className="text-sm font-semibold sm:text-xl">₹699</p>

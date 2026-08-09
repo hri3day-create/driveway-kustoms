@@ -50,9 +50,12 @@ export async function notifyBookingPushSubscribers(booking: BookingRecord) {
   }
 
   const customerName = `${booking.firstName} ${booking.lastName}`.trim();
+  const isQuickBooking = booking.notes.startsWith("[QUICK BOOKING]");
   const payload = JSON.stringify({
     title: `New booking · ${booking.bookingCode}`,
-    body: `${customerName} · ${booking.vehicleModel || booking.vehicle} · ${formatCurrency(booking.totalAmount)}`,
+    body: isQuickBooking
+      ? `${customerName} · ${booking.vehicleModel} · Quick callback request`
+      : `${customerName} · ${booking.vehicleModel || booking.vehicle} · ${formatCurrency(booking.totalAmount)}`,
     url: "/admin/orders",
     tag: `booking-${booking.id}`,
   });

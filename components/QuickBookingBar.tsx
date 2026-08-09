@@ -7,7 +7,7 @@ const whatsappMessage = encodeURIComponent(
 
 export default function QuickBookingBar() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#090909]/95 px-3 pb-[max(0.7rem,env(safe-area-inset-bottom))] pt-2.5 shadow-[0_-18px_55px_rgba(0,0,0,0.6)] backdrop-blur-xl lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#090909] px-3 pb-[max(0.7rem,env(safe-area-inset-bottom))] pt-2.5 shadow-[0_-12px_35px_rgba(0,0,0,0.5)] lg:hidden">
       <div className="mx-auto grid max-w-lg grid-cols-[0.78fr_1.22fr] gap-2.5">
         <a
           href={`https://wa.me/918796562667?text=${whatsappMessage}`}
@@ -19,10 +19,10 @@ export default function QuickBookingBar() {
           Need help?
         </a>
         <Link
-          href="/Build-package"
+          href="/book"
           className="inline-flex min-h-[3.25rem] items-center justify-center rounded-xl bg-red-600 px-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(220,38,38,0.3)] active:scale-[0.98]"
         >
-          Book in 2 minutes
+          Quick book
         </Link>
       </div>
     </div>

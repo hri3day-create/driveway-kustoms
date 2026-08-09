@@ -88,3 +88,17 @@ button {
 img {
   -webkit-user-drag: none;
 }
+
+@media (max-width: 767px), (pointer: coarse) {
+  body {
+    background: #080808;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  .group img {
+    transform: none !important;
+  }
+}

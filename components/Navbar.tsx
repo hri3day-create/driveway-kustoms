@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
-      <div className="mx-auto max-w-7xl rounded-[1.5rem] border border-white/10 bg-black/60 shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl rounded-[1.5rem] border border-white/10 bg-[#090909] shadow-[0_14px_40px_rgba(0,0,0,0.36)] sm:bg-black/60 sm:backdrop-blur-xl">
         <nav className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
           <Link
             href="/"
@@ -45,10 +45,10 @@ export default function Navbar() {
             ))}
 
             <Link
-              href="/contact"
+              href="/book"
               className="ml-2 rounded-full border border-red-500/70 bg-red-500/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-500 hover:text-white"
             >
-              Contact
+              Book now
             </Link>
           </div>
 
@@ -81,11 +81,11 @@ export default function Navbar() {
               ))}
 
               <Link
-                href="/contact"
+                href="/book"
                 onClick={() => setMenuOpen(false)}
                 className="mt-1 rounded-2xl bg-red-600 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-red-500"
               >
-                Contact Us
+                Quick Book
               </Link>
             </div>
           </div>

@@ -12,12 +12,12 @@ export default function Hero() {
   return (
     <section className="relative isolate min-h-[48rem] overflow-hidden px-4 pb-14 pt-28 text-white sm:px-6 sm:pb-20 sm:pt-36 lg:flex lg:min-h-[52rem] lg:items-center lg:pb-24 lg:pt-40">
       <div className="absolute inset-0 -z-20 bg-[#050505]" />
-      <div className="absolute left-1/2 top-0 -z-10 h-[34rem] w-[52rem] -translate-x-1/2 rounded-full bg-red-600/15 blur-[120px]" />
-      <div className="hero-grid absolute inset-0 -z-10 opacity-30" />
+      <div className="absolute left-1/2 top-0 -z-10 hidden h-[34rem] w-[52rem] -translate-x-1/2 rounded-full bg-red-600/15 blur-[120px] sm:block" />
+      <div className="hero-grid absolute inset-0 -z-10 hidden opacity-30 sm:block" />
 
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:gap-8 xl:gap-16">
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/25 bg-red-500/[0.08] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-200 backdrop-blur-xl sm:px-4 sm:text-[11px] sm:tracking-[0.25em]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/25 bg-red-500/[0.08] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-200 sm:px-4 sm:text-[11px] sm:tracking-[0.25em] sm:backdrop-blur-xl">
             <MapPin size={13} aria-hidden="true" />
             Premium car care at your doorstep
           </div>
@@ -52,16 +52,16 @@ export default function Hero() {
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/Build-package"
+              href="/book"
               className="group inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-red-600 px-7 py-4 text-sm font-semibold text-white shadow-[0_16px_50px_rgba(220,38,38,0.32)] transition duration-300 hover:-translate-y-0.5 hover:bg-red-500"
             >
-              Book in 2 minutes
+              Quick book
               <ArrowRight size={17} className="transition group-hover:translate-x-1" aria-hidden="true" />
             </Link>
 
             <Link
               href="/services"
-              className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/15 bg-white/[0.045] px-7 py-4 text-sm font-semibold text-white backdrop-blur-xl transition duration-300 hover:border-white/30 hover:bg-white/[0.08]"
+              className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/15 bg-white/[0.045] px-7 py-4 text-sm font-semibold text-white transition duration-300 hover:border-white/30 hover:bg-white/[0.08] sm:backdrop-blur-xl"
             >
               Explore All Services
             </Link>
@@ -95,7 +95,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="absolute -bottom-6 left-0 w-[52%] overflow-hidden rounded-[1.35rem] border border-white/15 bg-black/80 p-1.5 shadow-[0_24px_70px_rgba(0,0,0,0.7)] backdrop-blur-xl sm:-bottom-8 sm:w-[46%] sm:rounded-[1.8rem] sm:p-2">
+          <div className="absolute -bottom-6 left-0 w-[52%] overflow-hidden rounded-[1.35rem] border border-white/15 bg-black/90 p-1.5 shadow-[0_24px_70px_rgba(0,0,0,0.7)] sm:-bottom-8 sm:w-[46%] sm:rounded-[1.8rem] sm:bg-black/80 sm:p-2 sm:backdrop-blur-xl">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1rem] sm:rounded-[1.35rem]">
               <Image
                 src="/images/service-thumbnails/interior-mods-mercedes-ambient.webp"
@@ -111,7 +111,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="absolute right-3 top-4 rounded-2xl border border-white/15 bg-black/55 px-3.5 py-3 backdrop-blur-xl sm:right-5 sm:top-6 sm:px-5 sm:py-4">
+          <div className="absolute right-3 top-4 rounded-2xl border border-white/15 bg-black/85 px-3.5 py-3 sm:right-5 sm:top-6 sm:bg-black/55 sm:px-5 sm:py-4 sm:backdrop-blur-xl">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-zinc-400 sm:text-[10px]">
               Starting from
             </p>

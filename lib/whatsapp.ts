@@ -27,6 +27,7 @@ function formatCurrency(amount: number) {
 export async function sendBookingWhatsAppNotification(
   booking: BookingRecord
 ): Promise<WhatsAppNotificationResult> {
+  const isQuickBooking = booking.notes.startsWith("[QUICK BOOKING]");
   const token = configuredValue("WHATSAPP_ACCESS_TOKEN");
   const phoneNumberId = configuredValue("WHATSAPP_PHONE_NUMBER_ID");
   const ownerNumber = configuredValue("WHATSAPP_OWNER_NUMBER").replace(
@@ -55,23 +56,27 @@ export async function sendBookingWhatsAppNotification(
     .filter(Boolean)
     .join(", ")
     .slice(0, 900);
-  const vehicleSummary = [
-    booking.vehicleModel,
-    `category: ${booking.vehicle}`,
-    booking.registration ? `registration: ${booking.registration}` : "",
-  ]
-    .filter(Boolean)
-    .join(" | ");
+  const vehicleSummary = isQuickBooking
+    ? booking.vehicleModel
+    : [
+        booking.vehicleModel,
+        `category: ${booking.vehicle}`,
+        booking.registration ? `registration: ${booking.registration}` : "",
+      ]
+        .filter(Boolean)
+        .join(" | ");
 
   const parameters = [
     booking.bookingCode,
     `${booking.firstName} ${booking.lastName}`.trim(),
     booking.phone,
     vehicleSummary,
-    servicesSummary || "Consultation",
+    isQuickBooking ? "Quick booking callback" : servicesSummary || "Consultation",
     formatCurrency(booking.totalAmount),
-    `${booking.appointmentDate} at ${booking.appointmentTime}`,
-    `${booking.address}, ${booking.city} ${booking.postcode}`,
+    isQuickBooking
+      ? "Call customer to confirm schedule"
+      : `${booking.appointmentDate} at ${booking.appointmentTime}`,
+    [booking.address, booking.city, booking.postcode].filter(Boolean).join(", "),
   ].map((text) => ({ type: "text" as const, text }));
 
   try {
