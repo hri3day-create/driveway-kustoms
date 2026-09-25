@@ -4,7 +4,9 @@ import { ArrowRight, Camera, MessageCircle, Phone } from "lucide-react";
 
 const links = [
   { href: "/Build-package", label: "Build Package" },
+  { href: "/monthly-packages", label: "Monthly Plans" },
   { href: "/services", label: "All Services" },
+  { href: "/store", label: "Accessories Store" },
   { href: "/Car-Mods", label: "Car Mods" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

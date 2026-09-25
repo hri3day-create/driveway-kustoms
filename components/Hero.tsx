@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, MapPin } from "lucide-react";
+import { ArrowRight, Check, MapPin, ShoppingBag } from "lucide-react";
 
 const highlights = [
   "Doorstep service",
@@ -50,7 +50,7 @@ export default function Hero() {
             ))}
           </div>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="/book"
               className="group inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-red-600 px-7 py-4 text-sm font-semibold text-white shadow-[0_16px_50px_rgba(220,38,38,0.32)] transition duration-300 hover:-translate-y-0.5 hover:bg-red-500"
@@ -64,6 +64,19 @@ export default function Hero() {
               className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/15 bg-white/[0.045] px-7 py-4 text-sm font-semibold text-white transition duration-300 hover:border-white/30 hover:bg-white/[0.08] sm:backdrop-blur-xl"
             >
               Build Your Package
+            </Link>
+
+            <Link
+              href="/store"
+              className="group inline-flex min-h-13 items-center justify-center gap-2 rounded-full border border-red-500/60 bg-red-500/10 px-7 py-4 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-red-600"
+            >
+              <ShoppingBag size={16} aria-hidden="true" />
+              Enter Store
+              <ArrowRight
+                size={16}
+                className="transition group-hover:translate-x-1"
+                aria-hidden="true"
+              />
             </Link>
           </div>
 

@@ -15,6 +15,7 @@ interface Props {
   vehicle: string;
   selected: Service[];
   total: number;
+  basePrice: number;
   toggleService: (service: Service) => void;
   onContinue: () => void;
   showBasePackage: boolean;
@@ -36,6 +37,7 @@ export default function Summary({
   vehicle,
   selected,
   total,
+  basePrice,
   toggleService,
   onContinue,
   showBasePackage,
@@ -108,7 +110,7 @@ export default function Summary({
               </div>
 
               <span className="font-semibold text-white">
-                Rs 699
+                Rs {basePrice.toLocaleString("en-IN")}
               </span>
             </div>
           )}

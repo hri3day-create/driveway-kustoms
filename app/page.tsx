@@ -7,6 +7,7 @@ import CarModsPreview from "@/components/CarModsPreview";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import QuickBookingBar from "@/components/QuickBookingBar";
+import MonthlyPackages from "@/components/MonthlyPackages";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
           </div>
         </div>
         <Services />
+        <MonthlyPackages />
         <WhyChooseUs />
         <Testimonials />
         <CarModsPreview />

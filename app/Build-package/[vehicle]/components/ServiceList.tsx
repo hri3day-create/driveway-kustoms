@@ -88,8 +88,8 @@ export default function ServiceList({
           </p>
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-2 items-stretch gap-2.5 sm:mt-8 sm:gap-5 xl:grid-cols-3">
-          {visibleServices.map((service) => {
+        <div className="mt-6 grid grid-cols-1 items-stretch gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
+          {visibleServices.map((service, index) => {
           const active = selected.some(
             (item) => item.name === service.name
           );
@@ -97,7 +97,8 @@ export default function ServiceList({
           return (
             <div
               key={service.id}
-              className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-[1.25rem] border p-2.5 transition-[border-color,background-color,box-shadow,transform] duration-300 sm:rounded-[1.85rem] sm:p-5 sm:hover:-translate-y-1 ${
+              style={{ animationDelay: `${Math.min(index, 8) * 35}ms` }}
+              className={`service-card-enter group flex h-full min-w-0 flex-col overflow-hidden rounded-[1.4rem] border p-3 transition-[border-color,background-color,box-shadow,transform] duration-300 ease-out sm:rounded-[1.85rem] sm:p-4 sm:hover:-translate-y-1 ${
                 active
                   ? "border-red-500 bg-red-500/10 shadow-[0_0_25px_rgba(239,68,68,0.15)]"
                   : "border-white/10 bg-white/[0.035] hover:border-white/20"
@@ -106,12 +107,12 @@ export default function ServiceList({
               <ServicePhoto
                 name={service.name}
                 category={service.category}
-                variant="compact-card"
-                className="rounded-xl sm:rounded-2xl"
-                sizes="(max-width: 640px) 43vw, (max-width: 1280px) 42vw, 260px"
+                variant="card"
+                className="!aspect-[16/10] rounded-[1.05rem] sm:rounded-[1.4rem]"
+                sizes="(max-width: 640px) 92vw, (max-width: 1280px) 44vw, 300px"
               />
 
-              <div className="mt-2.5 flex min-w-0 items-center justify-between gap-1.5 sm:mt-4 sm:gap-3">
+              <div className="mt-3 flex min-w-0 items-center justify-between gap-2">
                 <span className="min-w-0 truncate rounded-full border border-white/10 bg-black/25 px-2 py-1 text-[9px] uppercase tracking-wide text-zinc-300 sm:px-3 sm:text-[11px] sm:tracking-wider">
                   {service.category}
                 </span>
@@ -124,31 +125,27 @@ export default function ServiceList({
                 )}
               </div>
 
-              <h3 className="mt-3 line-clamp-2 min-h-10 break-words text-sm font-semibold leading-5 text-white sm:mt-5 sm:min-h-0 sm:text-xl sm:leading-normal">
+              <h3 className="mt-2.5 line-clamp-2 break-words text-lg font-semibold leading-6 text-white sm:text-xl">
                 {service.name}
               </h3>
 
-              <p className="mt-1.5 line-clamp-3 text-[11px] leading-[1.05rem] text-zinc-400 sm:mt-3 sm:text-sm sm:leading-7">
+              <p className="mt-1 line-clamp-1 text-xs leading-5 text-zinc-400 sm:text-sm">
                 {service.description}
               </p>
 
               {service.note && (
-                <div className="mt-2.5 rounded-lg border border-white/10 bg-black/25 p-2 sm:mt-4 sm:rounded-xl sm:p-3">
-                  <p className="line-clamp-2 text-[10px] leading-4 text-zinc-500 sm:text-xs sm:leading-6">
+                <div className="mt-2 hidden rounded-lg border border-white/10 bg-black/25 p-2 sm:block">
+                  <p className="line-clamp-1 text-xs leading-5 text-zinc-500">
                     {service.note}
                   </p>
                 </div>
               )}
 
-              <div className="mt-auto flex min-w-0 flex-col gap-2 pt-3 sm:mt-8 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:pt-0">
+              <div className="mt-auto flex min-w-0 items-end justify-between gap-4 pt-3">
                 <div className="min-w-0">
                   {showPrices && service.price && (
                     <>
-                      <p className="text-xs uppercase tracking-[0.15em] text-zinc-500">
-                        Price
-                      </p>
-
-                      <p className="mt-1 truncate text-base font-bold text-white sm:text-3xl">
+                      <p className="truncate text-2xl font-bold text-white sm:text-3xl">
                         Rs {service.price.toLocaleString("en-IN")}
                       </p>
                     </>
@@ -157,11 +154,7 @@ export default function ServiceList({
                   {showStartingPrice &&
                     service.startingPrice && (
                       <>
-                        <p className="text-xs uppercase tracking-[0.15em] text-zinc-500">
-                          Starting from
-                        </p>
-
-                        <p className="mt-1 truncate text-xs font-semibold text-red-400 sm:text-lg">
+                        <p className="truncate text-base font-semibold text-red-400 sm:text-lg">
                           {service.startingPrice
                             .replace("₹", "Rs ")
                             .replace("â‚¹", "Rs ")
@@ -174,7 +167,7 @@ export default function ServiceList({
                 <button
                   type="button"
                   onClick={() => toggleService(service)}
-                  className={`flex min-h-9 w-full items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition-all sm:min-h-11 sm:w-auto sm:gap-2 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm ${
+                  className={`flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200 active:scale-95 ${
                     active
                       ? "bg-green-600 text-white hover:bg-green-700"
                       : "bg-red-600 text-white hover:bg-red-700"

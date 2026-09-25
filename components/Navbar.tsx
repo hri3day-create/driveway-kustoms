@@ -7,7 +7,9 @@ import { useState } from "react";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/Build-package", label: "Build Package" },
+  { href: "/monthly-packages", label: "Monthly Plans" },
   { href: "/services", label: "Services" },
+  { href: "/store", label: "Store" },
   { href: "/Car-Mods", label: "Car Mods" },
   { href: "/about", label: "About" },
 ];
@@ -55,20 +57,28 @@ export default function Navbar() {
           <button
             type="button"
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-red-500/60 hover:bg-red-500/10 lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition duration-300 hover:border-red-500/60 hover:bg-red-500/10 active:scale-95 lg:hidden"
           >
-            <span className="space-y-1.5">
-              <span className="block h-0.5 w-5 bg-current" />
-              <span className="block h-0.5 w-5 bg-current" />
-              <span className="block h-0.5 w-5 bg-current" />
+            <span className="relative block h-5 w-5">
+              <span className={`absolute left-0 top-1 block h-0.5 w-5 bg-current transition duration-300 ${menuOpen ? "translate-y-[6px] rotate-45" : ""}`} />
+              <span className={`absolute left-0 top-[9px] block h-0.5 w-5 bg-current transition duration-300 ${menuOpen ? "scale-x-0 opacity-0" : ""}`} />
+              <span className={`absolute bottom-1 left-0 block h-0.5 w-5 bg-current transition duration-300 ${menuOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
             </span>
           </button>
         </nav>
 
-        {menuOpen && (
-          <div className="border-t border-white/10 px-4 pb-4 lg:hidden">
-            <div className="grid gap-2 pt-4">
+        <div
+          aria-hidden={!menuOpen}
+          className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out lg:hidden ${
+            menuOpen
+              ? "grid-rows-[1fr] border-t border-white/10 opacity-100"
+              : "pointer-events-none grid-rows-[0fr] border-t border-transparent opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div className="grid gap-2 px-4 pb-4 pt-4">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -89,7 +99,7 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );

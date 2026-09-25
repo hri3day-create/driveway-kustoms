@@ -62,7 +62,7 @@ export default function CategorySelector({
               key={category.id}
               onClick={() => onSelect(category.id)}
               aria-pressed={active}
-                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[1.25rem] border p-2.5 text-left transition-all duration-300 sm:rounded-[1.6rem] sm:p-4 ${
+                className={`group relative flex min-w-0 flex-col overflow-hidden rounded-[1.25rem] border p-2.5 text-left transition-all duration-300 ease-out active:scale-[0.985] sm:rounded-[1.6rem] sm:p-4 ${
                 active
                   ? "border-red-500 bg-red-500/10 shadow-[0_0_30px_rgba(239,68,68,0.18)]"
                   : "border-white/10 bg-white/[0.035] hover:border-white/20 sm:hover:-translate-y-1"
@@ -77,7 +77,7 @@ export default function CategorySelector({
               <ServicePhoto
                 name={category.title}
                 category={category.title}
-                variant="compact-card"
+                variant="card"
                 className={`mb-3 rounded-xl transition-all sm:mb-4 sm:rounded-2xl ${
                   active ? "border-red-500/60" : "group-hover:border-red-500/40"
                 }`}
@@ -88,7 +88,7 @@ export default function CategorySelector({
                 {category.title}
               </h3>
 
-              <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-zinc-400 sm:mt-2 sm:text-sm sm:leading-relaxed">
+              <p className="mt-1 line-clamp-1 text-[11px] leading-4 text-zinc-400 sm:mt-2 sm:text-sm sm:leading-relaxed">
                 {category.subtitle}
               </p>
 

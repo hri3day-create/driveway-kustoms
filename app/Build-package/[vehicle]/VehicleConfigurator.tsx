@@ -13,6 +13,7 @@ import ExteriorMods from "./components/sections/ExteriorMods";
 import Protection from "./components/sections/Protection";
 
 import { Service } from "./types";
+import { getEssentialDetailPrice } from "./pricing";
 
 interface Props {
   vehicle: string;
@@ -37,9 +38,10 @@ export default function VehicleConfigurator({
     (service) => typeof service.price === "number"
   );
 
+  const essentialDetailPrice = getEssentialDetailPrice(vehicle);
   const basePrice =
     selectedCategory === "detailing" || hasDetailingSelection
-      ? 699
+      ? essentialDetailPrice
       : 0;
 
   const getServicePrice = (service: Service) => {
@@ -83,13 +85,14 @@ export default function VehicleConfigurator({
         onSelect={setSelectedCategory}
       />
 
-      {selectedCategory === "detailing" && (
-        <div className="mt-8">
-          <BasePackage />
-        </div>
-      )}
+      <div key={selectedCategory} className="content-switch">
+        {selectedCategory === "detailing" && (
+          <div className="mt-8">
+            <BasePackage vehicle={vehicle} price={essentialDetailPrice} />
+          </div>
+        )}
 
-      <div className="mt-8 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(19rem,1fr)]">
+        <div className="mt-8 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(19rem,1fr)]">
         <div className="min-w-0">
           {selectedCategory === "detailing" && (
             <Detailing
@@ -125,6 +128,7 @@ export default function VehicleConfigurator({
             vehicle={vehicle}
             selected={selected}
             total={total}
+            basePrice={essentialDetailPrice}
             toggleService={toggleService}
             onContinue={() => setDrawerOpen(true)}
             showBasePackage={
@@ -132,6 +136,7 @@ export default function VehicleConfigurator({
               hasDetailingSelection
             }
           />
+        </div>
         </div>
       </div>
 

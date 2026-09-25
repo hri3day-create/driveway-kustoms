@@ -2,7 +2,12 @@ import { CheckCircle2 } from "lucide-react";
 
 import ServicePhoto from "@/components/ServicePhoto";
 
-export default function BasePackage() {
+interface Props {
+  vehicle: string;
+  price: number;
+}
+
+export default function BasePackage({ vehicle, price }: Props) {
   return (
     <section className="mb-6 rounded-[1.7rem] border border-white/10 bg-white/[0.035] p-5 sm:rounded-[1.9rem] sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -32,11 +37,11 @@ export default function BasePackage() {
 
         <div className="text-left sm:text-right">
           <p className="text-[10px] uppercase tracking-[0.15em] text-zinc-500">
-            Starts From
+            For {vehicle.replace(/-/g, " ")}
           </p>
 
           <h3 className="mt-1 text-2xl font-bold text-red-400">
-            Rs 699
+            Rs {price.toLocaleString("en-IN")}
           </h3>
         </div>
       </div>
