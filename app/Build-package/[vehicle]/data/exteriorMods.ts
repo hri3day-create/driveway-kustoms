@@ -109,7 +109,7 @@ export const exteriorMods: Service[] = [
     description:
       "Vehicle-specific side skirt installation with level, secure fitment.",
     category: "Styling",
-    startingPrice: "Rs 5,000",
+    startingPrice: "Rs 2,000",
   },
   {
     id: 13,
