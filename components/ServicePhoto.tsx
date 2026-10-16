@@ -28,7 +28,7 @@ const serviceImages: Record<string, string> = {
   "Interior Upgrades": "bmw-luxury-interior.jpg",
   "Exterior Mods": "exterior-mods-ncr-home-bg-v2.webp",
   "Exterior Styling": "exterior-mods-bmw-jdm.webp",
-  Protection: "protective-film-team.jpg",
+  Protection: "protection-indian-professional-ncr-v1.webp",
   "Protection Packages": "ppf-install.jpg",
 
   // Detailing services

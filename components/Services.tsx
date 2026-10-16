@@ -28,7 +28,7 @@ const services = [
     title: "Protection",
     eyebrow: "Preserve the finish",
     description: "PPF, ceramic coatings, and focused protection for every surface.",
-    image: "/images/service-thumbnails/ceramic-coating-bottle-v3.webp",
+    image: "/images/service-thumbnails/protection-indian-professional-ncr-v1.webp",
     anchor: "protection",
   },
 ];
