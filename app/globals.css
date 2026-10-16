@@ -109,6 +109,20 @@ details > summary::-webkit-details-marker {
   }
 }
 
+.protection-image-crossfade {
+  opacity: 0;
+  animation: protection-image-crossfade 10s ease-in-out infinite;
+}
+
+@keyframes protection-image-crossfade {
+  0%, 42%, 100% {
+    opacity: 0;
+  }
+  50%, 92% {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

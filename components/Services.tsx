@@ -2,7 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-const services = [
+type ServiceCard = {
+  title: string;
+  eyebrow: string;
+  description: string;
+  image: string;
+  secondaryImage?: string;
+  anchor: string;
+};
+
+const services: ServiceCard[] = [
   {
     title: "Detailing",
     eyebrow: "Restore & refine",
@@ -29,6 +38,7 @@ const services = [
     eyebrow: "Preserve the finish",
     description: "PPF, ceramic coatings, and focused protection for every surface.",
     image: "/images/service-thumbnails/protection-ppf-indian-professional-ncr-v1.webp",
+    secondaryImage: "/images/service-thumbnails/protection-indian-professional-ncr-v1.webp",
     anchor: "protection",
   },
 ];
@@ -67,6 +77,15 @@ export default function Services() {
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover transition duration-700 group-hover:scale-105"
               />
+              {service.secondaryImage && (
+                <Image
+                  src={service.secondaryImage}
+                  alt={`${service.title} ceramic coating at Driveway Kustoms`}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                  className="protection-image-crossfade object-cover transition duration-700 group-hover:scale-105"
+                />
+              )}
               <div className="absolute inset-0 -z-0 bg-gradient-to-t from-black via-black/20 to-black/5" />
               <div className="absolute inset-x-0 bottom-0 z-10 p-3.5 sm:p-6">
                 <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-red-300 sm:text-[10px] sm:tracking-[0.24em]">

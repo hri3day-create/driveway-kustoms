@@ -138,6 +138,10 @@ const serviceImages: Record<string, string> = {
   "Fabric Protection Coating": "fabric-protection-bottle-v3.webp",
 };
 
+const secondaryServiceImages: Record<string, string> = {
+  Protection: "protection-indian-professional-ncr-v1.webp",
+};
+
 export function getServicePhoto(name: string, category = "") {
   const image = serviceImages[name] ?? serviceImages[category];
 
@@ -154,6 +158,8 @@ export default function ServicePhoto({
   priority = false,
 }: Props) {
   const photo = getServicePhoto(name, category);
+  const secondaryImage = secondaryServiceImages[name] ?? secondaryServiceImages[category];
+  const secondaryPhoto = secondaryImage ? `${imageBase}${secondaryImage}` : null;
 
   if (!photo) {
     return null;
@@ -182,6 +188,16 @@ export default function ServicePhoto({
         priority={priority}
         className={`object-cover transition duration-500 group-hover:scale-110 ${imageClassName}`}
       />
+
+      {secondaryPhoto && (
+        <Image
+          src={secondaryPhoto}
+          alt={`${name} ceramic coating service`}
+          fill
+          sizes={sizes}
+          className={`protection-image-crossfade object-cover transition duration-500 group-hover:scale-110 ${imageClassName}`}
+        />
+      )}
 
       <span className="absolute inset-0 bg-gradient-to-tr from-black/35 via-transparent to-red-500/15" />
     </span>
