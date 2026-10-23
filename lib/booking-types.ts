@@ -13,7 +13,7 @@ export type BookingPriceKind = "fixed" | "starting";
 export interface BookingServiceLine {
   name: string;
   category: string;
-  catalog: "detailing" | "interior" | "exterior" | "protection";
+  catalog: "detailing" | "interior" | "audio" | "exterior" | "protection";
   amount: number;
   priceKind: BookingPriceKind;
 }

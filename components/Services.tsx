@@ -22,9 +22,16 @@ const services: ServiceCard[] = [
   {
     title: "Interior Mods",
     eyebrow: "Luxury inside",
-    description: "Ambient lighting, upholstery, audio, screens, and smart cabin tech.",
+    description: "Ambient lighting, upholstery, screens, and smart cabin technology.",
     image: "/images/service-thumbnails/interior-mods-mercedes-ambient.webp",
     anchor: "interior-mods",
+  },
+  {
+    title: "Audio Upgrades",
+    eyebrow: "Sound, properly tuned",
+    description: "Speakers, subwoofers, amplifiers, damping, and DSP tuning.",
+    image: "/images/service-thumbnails/audio-upgrades-ncr-home-v1.webp",
+    anchor: "audio-upgrades",
   },
   {
     title: "Exterior Mods",
@@ -63,18 +70,18 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="mt-9 grid grid-cols-2 gap-2.5 sm:mt-12 sm:gap-4 lg:grid-cols-4">
+        <div className="mt-9 grid grid-cols-2 gap-2.5 sm:mt-12 sm:gap-4 lg:grid-cols-5">
           {services.map((service, index) => (
             <Link
               key={service.title}
               href={`/services#${service.anchor}`}
-              className={`group relative isolate min-h-[15rem] overflow-hidden rounded-[1.35rem] border border-white/10 bg-zinc-900 shadow-[0_22px_60px_rgba(0,0,0,0.28)] transition duration-500 hover:-translate-y-1.5 hover:border-red-500/50 sm:min-h-[28rem] sm:rounded-[2rem] ${index === 0 || index === 3 ? "lg:translate-y-6" : ""}`}
+              className={`group relative isolate min-h-[15rem] overflow-hidden rounded-[1.35rem] border border-white/10 bg-zinc-900 shadow-[0_22px_60px_rgba(0,0,0,0.28)] transition duration-500 hover:-translate-y-1.5 hover:border-red-500/50 sm:min-h-[28rem] sm:rounded-[2rem] ${index === services.length - 1 ? "col-span-2 lg:col-span-1" : ""} ${index === 0 || index === services.length - 1 ? "lg:translate-y-6" : ""}`}
             >
               <Image
                 src={service.image}
                 alt={`${service.title} at Driveway Kustoms`}
                 fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 20vw"
                 className="object-cover transition duration-700 group-hover:scale-105"
               />
               {service.secondaryImage && (

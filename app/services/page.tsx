@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import ServicePhoto from "@/components/ServicePhoto";
 import { services } from "../Build-package/[vehicle]/data/services";
 import { interiorMods } from "../Build-package/[vehicle]/data/interiorMods";
+import { audioUpgrades } from "../Build-package/[vehicle]/data/audioUpgrades";
 import { exteriorMods } from "../Build-package/[vehicle]/data/exteriorMods";
 import { protection } from "../Build-package/[vehicle]/data/protection";
 
@@ -21,6 +22,13 @@ const serviceGroups = [
     description:
       "Thoughtful cabin upgrades, OEM-style integrations, and everyday luxury.",
     items: interiorMods,
+  },
+  {
+    title: "Audio Upgrades",
+    eyebrow: "Clarity, power, control",
+    description:
+      "Professionally integrated speakers, bass, amplification, damping, and tuning.",
+    items: audioUpgrades,
   },
   {
     title: "Exterior Mods",
@@ -69,8 +77,8 @@ export default function ServicesPage() {
             </h1>
 
             <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-400 sm:mt-5 sm:text-lg sm:leading-8">
-              Explore our full range of detailing, interior, exterior, and
-              protection services. Every project is tailored to your vehicle
+              Explore our full range of detailing, interior, audio, exterior,
+              and protection services. Every project is tailored to your vehicle
               and your taste.
             </p>
 

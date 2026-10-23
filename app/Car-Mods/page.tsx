@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ServicePhoto from "@/components/ServicePhoto";
 import { interiorMods } from "../Build-package/[vehicle]/data/interiorMods";
+import { audioUpgrades } from "../Build-package/[vehicle]/data/audioUpgrades";
 import { exteriorMods } from "../Build-package/[vehicle]/data/exteriorMods";
 
 const groups = [
@@ -12,6 +13,13 @@ const groups = [
     description:
       "Elevate every journey with considered cabin upgrades and OEM-style integrations.",
     services: interiorMods,
+  },
+  {
+    title: "Audio Upgrades",
+    eyebrow: "Speakers / bass / tuning",
+    description:
+      "Build a balanced system with compatible equipment, clean integration, and professional tuning.",
+    services: audioUpgrades,
   },
   {
     title: "Exterior Mods",
@@ -46,7 +54,7 @@ export default function CarModsPage() {
             </h1>
 
             <p className="mt-4 max-w-2xl text-sm leading-6 text-zinc-400 sm:mt-5 sm:text-lg sm:leading-7">
-              Explore our interior and exterior upgrades.
+              Explore our interior, audio, and exterior upgrades.
               We will help you select the right fit for your
               vehicle, style, and budget.
             </p>

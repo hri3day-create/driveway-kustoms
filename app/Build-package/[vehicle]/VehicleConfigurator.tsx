@@ -9,6 +9,7 @@ import BookingDrawer from "./components/BookingDrawer";
 
 import Detailing from "./components/sections/Detailing";
 import InteriorMods from "./components/sections/InteriorMods";
+import AudioUpgrades from "./components/sections/AudioUpgrades";
 import ExteriorMods from "./components/sections/ExteriorMods";
 import Protection from "./components/sections/Protection";
 
@@ -22,6 +23,7 @@ interface Props {
 type Category =
   | "detailing"
   | "interior"
+  | "audio"
   | "exterior"
   | "protection";
 
@@ -103,6 +105,13 @@ export default function VehicleConfigurator({
 
           {selectedCategory === "interior" && (
             <InteriorMods
+              selected={selected}
+              toggleService={toggleService}
+            />
+          )}
+
+          {selectedCategory === "audio" && (
+            <AudioUpgrades
               selected={selected}
               toggleService={toggleService}
             />

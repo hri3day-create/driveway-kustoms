@@ -29,46 +29,6 @@ export const interiorMods: Service[] = [
     popular: true,
   },
   {
-    id: 4,
-    name: "Underseat Subwoofer Installation",
-    description:
-      "Compact powered subwoofer installation beneath the seat for deeper bass without sacrificing boot space.",
-    category: "Audio",
-    startingPrice: "Rs 5,000",
-  },
-  {
-    id: 5,
-    name: "Bass Tube Installation",
-    description:
-      "Secure boot-mounted bass tube installation with tidy fused wiring and correct gain setup.",
-    category: "Audio",
-    startingPrice: "Rs 3,600",
-  },
-  {
-    id: 6,
-    name: "Tweeter Installation",
-    description:
-      "Precision tweeter fitment and crossover integration for clearer vocals and high-frequency detail.",
-    category: "Audio",
-    startingPrice: "Rs 3,500",
-  },
-  {
-    id: 7,
-    name: "DSP Tuning & Installation",
-    description:
-      "Digital signal processor installation and cabin-specific tuning for balanced staging, clarity, and control.",
-    category: "Audio",
-    startingPrice: "Rs 5,000",
-  },
-  {
-    id: 8,
-    name: "Door Damping",
-    description:
-      "Butyl damping treatment inside the door panels to reduce resonance, road noise, and speaker vibration.",
-    category: "Comfort",
-    startingPrice: "Rs 1,500",
-  },
-  {
     id: 9,
     name: "Android Infotainment Systems",
     description:
@@ -124,62 +84,6 @@ export const interiorMods: Service[] = [
       "Roof liner upholstery enhancement.",
     category: "Upholstery",
     startingPrice: "Rs 3,000",
-  },
-  {
-    id: 16,
-    name: "Complete Car Audio Setup",
-    description:
-      "Complete speaker, amplification and bass upgrade planned around your car and listening preferences.",
-    category: "Audio",
-    startingPrice: "Rs 15,000",
-  },
-  {
-    id: 17,
-    name: "Car Midrange Speakers",
-    description:
-      "Dedicated midrange speaker upgrade for stronger vocals and front-stage presence.",
-    category: "Audio",
-    startingPrice: "Rs 4,000",
-  },
-  {
-    id: 18,
-    name: "Component Speakers",
-    description:
-      "Component speaker upgrade with separate woofer, tweeter, and crossover installation.",
-    category: "Audio",
-    startingPrice: "Rs 4,000",
-  },
-  {
-    id: 19,
-    name: "Coaxial Speakers",
-    description:
-      "Clean coaxial speaker replacement for improved everyday sound.",
-    category: "Audio",
-    startingPrice: "Rs 3,500",
-  },
-  {
-    id: 20,
-    name: "OEM-Specific Subwoofer Upgrades",
-    description:
-      "Vehicle-specific subwoofer upgrade with an integrated factory-style fitment.",
-    category: "Audio",
-    startingPrice: "Rs 5,500",
-  },
-  {
-    id: 21,
-    name: "Boot Subwoofer Installation",
-    description:
-      "Boot subwoofer installation with a secure enclosure and correctly routed wiring.",
-    category: "Audio",
-    startingPrice: "Rs 5,000",
-  },
-  {
-    id: 22,
-    name: "Amplifier Installation",
-    description:
-      "Amplifier installation with safe power routing, secure mounting, and system setup.",
-    category: "Audio",
-    startingPrice: "Rs 3,500",
   },
   {
     id: 23,

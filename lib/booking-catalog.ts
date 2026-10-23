@@ -1,5 +1,6 @@
 import { services } from "@/app/Build-package/[vehicle]/data/services";
 import { interiorMods } from "@/app/Build-package/[vehicle]/data/interiorMods";
+import { audioUpgrades } from "@/app/Build-package/[vehicle]/data/audioUpgrades";
 import { exteriorMods } from "@/app/Build-package/[vehicle]/data/exteriorMods";
 import { protection } from "@/app/Build-package/[vehicle]/data/protection";
 
@@ -22,6 +23,7 @@ interface CatalogSource {
 const sources: CatalogSource[] = [
   { name: "detailing", entries: services },
   { name: "interior", entries: interiorMods },
+  { name: "audio", entries: audioUpgrades },
   { name: "exterior", entries: exteriorMods },
   { name: "protection", entries: protection },
 ];

@@ -26,6 +26,7 @@ const serviceImages: Record<string, string> = {
   "Interior Cleaning": "dk-ncr-interior-cleaning-v1.webp",
   "Interior Mods": "interior-mods-ncr-home-bg-v2.webp",
   "Interior Upgrades": "bmw-luxury-interior.jpg",
+  "Audio Upgrades": "audio-upgrades-ncr-home-v1.webp",
   "Exterior Mods": "exterior-mods-ncr-home-bg-v2.webp",
   "Exterior Styling": "exterior-mods-bmw-jdm.webp",
   Protection: "protection-ppf-indian-professional-ncr-v1.webp",

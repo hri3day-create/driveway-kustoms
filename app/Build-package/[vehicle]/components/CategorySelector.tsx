@@ -5,6 +5,7 @@ import ServicePhoto from "@/components/ServicePhoto";
 type Category =
   | "detailing"
   | "interior"
+  | "audio"
   | "exterior"
   | "protection";
 
@@ -22,7 +23,12 @@ const categories = [
   {
     id: "interior",
     title: "Interior Mods",
-    subtitle: "Seats, audio, ambient",
+    subtitle: "Upholstery, lighting, cabin tech",
+  },
+  {
+    id: "audio",
+    title: "Audio Upgrades",
+    subtitle: "Speakers, bass and DSP tuning",
   },
   {
     id: "exterior",
@@ -53,7 +59,7 @@ export default function CategorySelector({
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 xl:grid-cols-5">
         {categories.map((category) => {
           const active = selected === category.id;
 
